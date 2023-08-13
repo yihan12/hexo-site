@@ -21,13 +21,13 @@
 # 网站图标
 favicon:
   enable: true
-  icon: /images/favicon.png
-  touch_icon: /images/favicon.png
+  icon: /images/favicon.jpeg
+  touch_icon: /images/favicon.jpeg
 
 # 用户头像与昵称
 avatar:
-  author_photo: /images/avatar.png
-  author_nickname: Oranges
+  author_photo: /images/avatar.jpeg
+  author_nickname: 易函123
   path: /
 
 # Google 分析

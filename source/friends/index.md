@@ -1,7 +1,7 @@
 ---
-title: categories
+title: friends
 date:
-type: 'categories'
+type: 'friends'
 categories:
 tags:
 ---

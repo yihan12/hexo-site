@@ -70,10 +70,10 @@
     <a href="/">
       <!-- 头像取消懒加载，添加no-lazy -->
       
-        <img src="/images/avatar.png" alt="">
+        <img src="/images/avatar.jpg" alt="">
       
     </a>
-    <div class="nickname"><a href="/">Oranges</a></div>
+    <div class="nickname"><a href="/">易函123</a></div>
   </div>
   <div class="navbar">
     <ul>
@@ -161,9 +161,20 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2023-08-13 09:47:17
+          2023-08-13 10:26:36
         </span>
         
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E6%AD%A3%E5%88%99/" title="正则">
+                    <b>#</b> 正则
+                  </a>
+                </span>
+                
+              </span>
+          
               <span class="post-tags">
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
                 
@@ -183,22 +194,28 @@
           
       </div>
       <div class="markdown-body">
-        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var str = <span class="string">&#x27;这是一个字符串[html]语句;[html]字符串很常见&#x27;</span>;&lt;br&gt;</span><br><span class="line">alert(str.replace(/\[|]/g,<span class="string">&#x27;&#x27;</span>));//移除字符串中的所有[]括号（不包括其内容）</span><br><span class="line">//输出：这是一个字符串html语句;html字符串很常见&lt;br&gt;</span><br><span class="line">alert(str.replace(/\[.*?\]/g,<span class="string">&#x27;&#x27;</span>));//移除字符串中的所有[]括号（包括其内容）</span><br><span class="line">//输出：这是一个字符串语句;字符串很常见</span><br></pre></td></tr></table></figure>
+        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">&#x27;这是一个字符串[html]语句;[html]字符串很常见&#x27;</span>;&lt;br&gt;</span><br><span class="line"><span class="title function_">alert</span>(str.<span class="title function_">replace</span>(<span class="regexp">/\[|]/g</span>,<span class="string">&#x27;&#x27;</span>));<span class="comment">//移除字符串中的所有[]括号（不包括其内容）</span></span><br><span class="line"><span class="comment">//输出：这是一个字符串html语句;html字符串很常见&lt;br&gt;</span></span><br><span class="line"><span class="title function_">alert</span>(str.<span class="title function_">replace</span>(<span class="regexp">/\[.*?\]/g</span>,<span class="string">&#x27;&#x27;</span>));<span class="comment">//移除字符串中的所有[]括号（包括其内容）</span></span><br><span class="line"><span class="comment">//输出：这是一个字符串语句;字符串很常见</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="移除所有中括号-不包括其内容"><a href="#移除所有中括号-不包括其内容" class="headerlink" title="移除所有中括号,不包括其内容"></a>移除所有中括号,不包括其内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> str = <span class="string">&quot;[1,2,3,4,5,6,7,8]&quot;</span>;</span><br><span class="line"><span class="built_in">let</span> newStr = str.replace(/\[|]/g,<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">console.log(newStr);//1,2,3,4,5,6,7,8</span><br></pre></td></tr></table></figure>
+<h3 id="移除所有中括号-不包括其内容"><a href="#移除所有中括号-不包括其内容" class="headerlink" title="移除所有中括号,不包括其内容"></a>移除所有中括号,不包括其内容</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&#x27;[1,2,3,4,5,6,7,8]&#x27;</span></span><br><span class="line"><span class="keyword">let</span> newStr = str.<span class="title function_">replace</span>(<span class="regexp">/\[|]/g</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newStr) <span class="comment">//1,2,3,4,5,6,7,8</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="移除所有中括号-包括其内容"><a href="#移除所有中括号-包括其内容" class="headerlink" title="移除所有中括号,包括其内容"></a>移除所有中括号,包括其内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> str = <span class="string">&quot;[1,2,3,4,5,6,7,8]&quot;</span>;</span><br><span class="line"><span class="built_in">let</span> newStr = str.replace(/\[.*?\]/g,<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">console.log(newStr);//<span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="移除所有中括号-包括其内容"><a href="#移除所有中括号-包括其内容" class="headerlink" title="移除所有中括号,包括其内容"></a>移除所有中括号,包括其内容</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&#x27;[1,2,3,4,5,6,7,8]&#x27;</span></span><br><span class="line"><span class="keyword">let</span> newStr = str.<span class="title function_">replace</span>(<span class="regexp">/\[.*?\]/g</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newStr) <span class="comment">//&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <span id="more"></span>
 
-<h3 id="正则表达式符号释义"><a href="#正则表达式符号释义" class="headerlink" title="正则表达式符号释义"></a>正则表达式符号释义</h3><p>“&quot;：将下一个字符标记为一个特殊字符、或一个原义字符、或一个向后引用、或一个八进制转义符。例如，“n”匹配字符“n”。“\n”匹配一个换行符。串行“\”匹配“\”而“(”则匹配“(”；</p>
-<p>“|”：或的意思；</p>
-<p>“&#x2F;g”：全局搜索。由于此处要去除字符串中所有中括号，因此正则中要开启全局搜索；</p>
-<p>“.”：表示除换行符和其他 Unicode 行终止符之外的任意字符；</p>
-<p>“<em>“：匹配前面的子表达式零次或多次。例如，zo</em>能匹配“z”以及“zoo”。*等价于{0,}；</p>
-<p>“?”：匹配前面的子表达式零次或一次。例如，“do(es)?”可以匹配“does”或“does”中的“do”。?等价于{0,1}。（贪婪模式）</p>
-<p>更多正则表达式符号解释请看这里：JS 正则表达式</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>当然还有很多方法能解决,正则是最清楚最清晰明了的方式.</p>
+<h3 id="正则表达式符号释义"><a href="#正则表达式符号释义" class="headerlink" title="正则表达式符号释义"></a>正则表达式符号释义</h3><ul>
+<li><p>“&quot;：将下一个字符标记为一个特殊字符、或一个原义字符、或一个向后引用、或一个八进制转义符。例如，“n”匹配字符“n”。“\n”匹配一个换行符。串行“\”匹配“\”而“(”则匹配“(”；</p>
+</li>
+<li><p>“|”：或的意思；</p>
+</li>
+<li><p>“&#x2F;g”：全局搜索。由于此处要去除字符串中所有中括号，因此正则中要开启全局搜索；</p>
+</li>
+<li><p>“.”：表示除换行符和其他 Unicode 行终止符之外的任意字符；</p>
+</li>
+<li><p>“<em>“：匹配前面的子表达式零次或多次。例如，zo</em>能匹配“z”以及“zoo”。*等价于{0,}；</p>
+</li>
+<li><p>“?”：匹配前面的子表达式零次或一次。例如，“do(es)?”可以匹配“does”或“does”中的“do”。?等价于{0,1}。（贪婪模式）</p>
+</li>
+</ul>
 
       </div>
       
@@ -209,9 +226,20 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2023-08-13 09:47:17
+              2023-08-13 10:26:36
             </span>
             
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E6%AD%A3%E5%88%99/" title="正则">
+                        <b>#</b> 正则
+                      </a>
+                    </span>
+                    
+                  </span>
+              
                   <span class="post-tags">
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
                     
@@ -232,11 +260,6 @@
           </div>
           <div class="post-foot-prev">
             
-              <a href="/2023/08/13/1/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
-            
           </div>
         </div>
       
@@ -249,7 +272,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E6%89%80%E6%9C%89%E4%B8%AD%E6%8B%AC%E5%8F%B7-%E4%B8%8D%E5%8C%85%E6%8B%AC%E5%85%B6%E5%86%85%E5%AE%B9"><span class="toc-text">移除所有中括号,不包括其内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E6%89%80%E6%9C%89%E4%B8%AD%E6%8B%AC%E5%8F%B7-%E5%8C%85%E6%8B%AC%E5%85%B6%E5%86%85%E5%AE%B9"><span class="toc-text">移除所有中括号,包括其内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%A6%E5%8F%B7%E9%87%8A%E4%B9%89"><span class="toc-text">正则表达式符号释义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E6%89%80%E6%9C%89%E4%B8%AD%E6%8B%AC%E5%8F%B7-%E4%B8%8D%E5%8C%85%E6%8B%AC%E5%85%B6%E5%86%85%E5%AE%B9"><span class="toc-text">移除所有中括号,不包括其内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E6%89%80%E6%9C%89%E4%B8%AD%E6%8B%AC%E5%8F%B7-%E5%8C%85%E6%8B%AC%E5%85%B6%E5%86%85%E5%AE%B9"><span class="toc-text">移除所有中括号,包括其内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%A6%E5%8F%B7%E9%87%8A%E4%B9%89"><span class="toc-text">正则表达式符号释义</span></a></li></ol>
       
     </div>
   </div>
