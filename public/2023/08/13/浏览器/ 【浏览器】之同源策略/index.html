@@ -13,7 +13,7 @@
   
   <title>
     
-      js去除中括号 
+      【ES6学习笔记】之 变量 
       
       
       |
@@ -157,19 +157,25 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">js去除中括号</div>
+      <div class="post-title">【ES6学习笔记】之 变量</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2023-08-13 14:30:53
+          2023-08-13 14:37:21
         </span>
         
               <span class="post-categories">
                 <i class="iconfont icon-bookmark" title="Categories"></i>
                 
                 <span class="span--category">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF%EF%BC%8C%E6%AD%A3%E5%88%99/" title="前端，正则">
-                    <b>#</b> 前端，正则
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                    <b>#</b> 浏览器
                   </a>
                 </span>
                 
@@ -179,14 +185,8 @@
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/js/" title="js">
-                    #js
-                  </a>
-                </span>
-                
-                <span class="span--tag mr-8">
-                  <a href="/tags/%E6%AD%A3%E5%88%99/" title="正则">
-                    #正则
+                  <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                    #浏览器
                   </a>
                 </span>
                 
@@ -194,47 +194,70 @@
           
       </div>
       <div class="markdown-body">
-        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">&#x27;这是一个字符串[html]语句;[html]字符串很常见&#x27;</span>;&lt;br&gt;</span><br><span class="line"><span class="title function_">alert</span>(str.<span class="title function_">replace</span>(<span class="regexp">/\[|]/g</span>,<span class="string">&#x27;&#x27;</span>));<span class="comment">//移除字符串中的所有[]括号（不包括其内容）</span></span><br><span class="line"><span class="comment">//输出：这是一个字符串html语句;html字符串很常见&lt;br&gt;</span></span><br><span class="line"><span class="title function_">alert</span>(str.<span class="title function_">replace</span>(<span class="regexp">/\[.*?\]/g</span>,<span class="string">&#x27;&#x27;</span>));<span class="comment">//移除字符串中的所有[]括号（包括其内容）</span></span><br><span class="line"><span class="comment">//输出：这是一个字符串语句;字符串很常见</span></span><br></pre></td></tr></table></figure>
+        <h1 id="什么是浏览器同源策略"><a href="#什么是浏览器同源策略" class="headerlink" title="什么是浏览器同源策略?"></a>什么是浏览器同源策略?</h1><p><strong>同源</strong>：如果两个 URL 的协议、域名（主机名）和端口都相同，我们就称这两个 URL 同源。<br>这两个 URL 是同源的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//time.geekbang.org/?category=1</span></span><br><span class="line"><span class="attr">https</span>:<span class="comment">//time.geekbang.org/?category=0</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="移除所有中括号-不包括其内容"><a href="#移除所有中括号-不包括其内容" class="headerlink" title="移除所有中括号,不包括其内容"></a>移除所有中括号,不包括其内容</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&#x27;[1,2,3,4,5,6,7,8]&#x27;</span></span><br><span class="line"><span class="keyword">let</span> newStr = str.<span class="title function_">replace</span>(<span class="regexp">/\[|]/g</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newStr) <span class="comment">//1,2,3,4,5,6,7,8</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="移除所有中括号-包括其内容"><a href="#移除所有中括号-包括其内容" class="headerlink" title="移除所有中括号,包括其内容"></a>移除所有中括号,包括其内容</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&#x27;[1,2,3,4,5,6,7,8]&#x27;</span></span><br><span class="line"><span class="keyword">let</span> newStr = str.<span class="title function_">replace</span>(<span class="regexp">/\[.*?\]/g</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newStr) <span class="comment">//&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h3 id="正则表达式符号释义"><a href="#正则表达式符号释义" class="headerlink" title="正则表达式符号释义"></a>正则表达式符号释义</h3><ul>
-<li><p>“&quot;：将下一个字符标记为一个特殊字符、或一个原义字符、或一个向后引用、或一个八进制转义符。例如，“n”匹配字符“n”。“\n”匹配一个换行符。串行“\”匹配“\”而“(”则匹配“(”；</p>
+<blockquote>
+<p><strong>源：就是协议、域名和端口号。</strong></p>
+<p>同源策略：<strong>SOP（Same origin policy）是由 Netscape 公司 1995 年引入浏览器的一种约定</strong>，是浏览器最核心、最基本的安全功能，<strong>若缺少了同源策略，浏览器很容易受到 XSS、CSFR 等攻击</strong>。<strong>所谓同源是指”协议+域名+端口”三者相同，若两个 URL 的协议、域名、端口号都相同</strong>，则两者为同源，有一个不同则非同源，即便两个不同的域名指向同一个 ip 地址，也是非同源的</p>
+</blockquote>
+<p>非同源的 URL 在没有明确授权的情况下，不能读写对方资源（不能相互通信）</p>
+<p>具体来讲，同源策略主要表现在 <strong>DOM、Web 数据和网络</strong>这三个层面。</p>
+<ul>
+<li><p>第一个，DOM 层面。同源策略限制了来自不同源的 JavaScript 脚本对当前 DOM 对象读和写的操作。</p>
 </li>
-<li><p>“|”：或的意思；</p>
+<li><p>第二个，数据层面。同源策略限制了不同源的站点读取当前站点的 Cookie、IndexDB、LocalStorage 等数据。由于同源策略，我们依然无法通过第二个页面的 opener 来访问第一个页面中的 Cookie、IndexDB 或者 LocalStorage 等内容。你可以自己试一下，这里我们就不做演示了。</p>
 </li>
-<li><p>“&#x2F;g”：全局搜索。由于此处要去除字符串中所有中括号，因此正则中要开启全局搜索；</p>
-</li>
-<li><p>“.”：表示除换行符和其他 Unicode 行终止符之外的任意字符；</p>
-</li>
-<li><p>“<em>“：匹配前面的子表达式零次或多次。例如，zo</em>能匹配“z”以及“zoo”。*等价于{0,}；</p>
-</li>
-<li><p>“?”：匹配前面的子表达式零次或一次。例如，“do(es)?”可以匹配“does”或“does”中的“do”。?等价于{0,1}。（贪婪模式）</p>
+<li><p>第三个，网络层面。同源策略限制了通过 XMLHttpRequest 等方式将站点的数据发送给不同源的站点。你还记得在《17 | WebAPI：XMLHttpRequest 是怎么实现的？》这篇文章的末尾分析的 XMLHttpRequest 在使用过程中所遇到的坑吗？其中第一个坑就是在默认情况下不能访问跨域的资源。</p>
 </li>
 </ul>
+<p>浏览器默认两个相同的源之间是可以相互访问资源和操作 DOM 的。两个不同的源之间若想要相互访问资源或者操作 DOM，那么会有一套基础的安全策略的制约，我们把这称为<strong>同源策略</strong>。</p>
+<h1 id="安全与便利"><a href="#安全与便利" class="headerlink" title="安全与便利"></a>安全与便利</h1><p>同源策略会隔离不同源的 DOM、页面数据和网络通信，进而实现 Web 页面的安全性。</p>
+<p>同源策略将限制以下几种行为：</p>
+<p>（1）Cookie、LocalStorage 和 IndexDB 无法读取</p>
+<p>（2）DOM 和 Js 对象无法获得</p>
+<p>（3）AJAX 请求不能发送</p>
+<p>以下两种不受同源策略的限制：</p>
+<p>（1）页面中的链接，重定向以及表单提交是不会受到同源策略限制</p>
+<p>（2）跨域资源的引入，但是 js 不能读写加载的内容，如嵌入到页面中的<script src="..."></script>，<img>，<link>，<iframe>等</p>
+<p>注意：</p>
+<p>同源策略是浏览器做的限制，对服务器与服务器之间的通信不做限制</p>
+<p><strong>1. 页面中可以嵌入第三方资源</strong></p>
+<p><strong>2. 跨域资源共享和跨文档消息机制</strong></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>同源策略会隔离不同源的 DOM、页面数据和网络通信，进而实现 Web 页面的安全性。</p>
+<p>不过鱼和熊掌不可兼得，要绝对的安全就要牺牲掉便利性，因此我们要在这二者之间做权衡，找到中间的一个平衡点，也就是目前的页面安全策略原型。总结起来，它具备以下三个特点：</p>
+<p><strong>页面中可以引用第三方资源</strong>，不过这也暴露了很多诸如 <strong>XSS 的安全问题</strong>，因此又在这种开放的基础之上引入了 <strong>CSP</strong> 来限制其自由程度。 <strong>使用 XMLHttpRequest 和 Fetch 都是无法直接进行跨域请求的</strong>，因此浏览器又在这种严格策略的基础之上引入了<strong>跨域资源共享策略（CORS）</strong>，让其可以安全地进行跨域操作。 <strong>两个不同源的 DOM 是不能相互操纵的</strong>，因此，浏览器中又实现了<strong>跨文档消息机制（window.postMessage）</strong>，让其可以比较安全地通信</p>
+<p><strong>原文地址</strong>：<a target="_blank" rel="noopener" href="https://github.com/yihan12/Blog/blob/main/browser/Same-Origin%20Policy.md">【浏览器】之 同源策略</a></p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
+              <a href="/2023/08/13/ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%B9%8B%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
           </div>
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2023-08-13 14:30:53
+              2023-08-13 14:37:21
             </span>
             
                   <span class="post-categories">
                     <i class="iconfont icon-bookmark" title="Categories"></i>
                     
                     <span class="span--category">
-                      <a href="/categories/%E5%89%8D%E7%AB%AF%EF%BC%8C%E6%AD%A3%E5%88%99/" title="前端，正则">
-                        <b>#</b> 前端，正则
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                        <b>#</b> 浏览器
                       </a>
                     </span>
                     
@@ -244,14 +267,8 @@
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/js/" title="js">
-                        #js
-                      </a>
-                    </span>
-                    
-                    <span class="span--tag mr-8">
-                      <a href="/tags/%E6%AD%A3%E5%88%99/" title="正则">
-                        #正则
+                      <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                        #浏览器
                       </a>
                     </span>
                     
@@ -259,11 +276,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2023/08/13/ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%B9%8B%20%E5%8F%98%E9%87%8F/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -277,7 +289,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E6%89%80%E6%9C%89%E4%B8%AD%E6%8B%AC%E5%8F%B7-%E4%B8%8D%E5%8C%85%E6%8B%AC%E5%85%B6%E5%86%85%E5%AE%B9"><span class="toc-text">移除所有中括号,不包括其内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E6%89%80%E6%9C%89%E4%B8%AD%E6%8B%AC%E5%8F%B7-%E5%8C%85%E6%8B%AC%E5%85%B6%E5%86%85%E5%AE%B9"><span class="toc-text">移除所有中括号,包括其内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%A6%E5%8F%B7%E9%87%8A%E4%B9%89"><span class="toc-text">正则表达式符号释义</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B5%8F%E8%A7%88%E5%99%A8%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5"><span class="toc-text">什么是浏览器同源策略?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E4%B8%8E%E4%BE%BF%E5%88%A9"><span class="toc-text">安全与便利</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
       
     </div>
   </div>
@@ -563,12 +575,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + js%E5%8E%BB%E9%99%A4%E4%B8%AD%E6%8B%AC%E5%8F%B7 + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F08%2F13%2Fjs%25E5%258E%25BB%25E9%2599%25A4%25E4%25B8%25AD%25E6%258B%25AC%25E5%258F%25B7%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%B9%8B%20%E5%8F%98%E9%87%8F + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F08%2F13%2F%25E6%25B5%258F%25E8%25A7%2588%25E5%2599%25A8%2F%2520%25E3%2580%2590%25E6%25B5%258F%25E8%25A7%2588%25E5%2599%25A8%25E3%2580%2591%25E4%25B9%258B%25E5%2590%258C%25E6%25BA%2590%25E7%25AD%2596%25E7%2595%25A5%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/08/13/js%E5%8E%BB%E9%99%A4%E4%B8%AD%E6%8B%AC%E5%8F%B7/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/08/13/%E6%B5%8F%E8%A7%88%E5%99%A8/%20%E3%80%90%E6%B5%8F%E8%A7%88%E5%99%A8%E3%80%91%E4%B9%8B%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         

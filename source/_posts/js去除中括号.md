@@ -2,7 +2,7 @@
 title: js去除中括号
 date:
 tags: [js, 正则]
-categories: [正则]
+categories: [前端，正则]
 ---
 
 ```javascript

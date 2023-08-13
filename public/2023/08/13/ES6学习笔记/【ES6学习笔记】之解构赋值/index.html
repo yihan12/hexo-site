@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="keywords" content="个人,建站,博客,爱好,娱乐">
+  
+  <meta name="author" content="易函123" />
+  <meta name="description" content="我知道吹过的牛b，也会随青春一笑了之!!" />
+  
+  
+  <title>
+    
+      【ES6学习笔记】之 解构赋值 
+      
+      
+      |
+    
+     易函123
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.jpeg">
+    <link rel="icon" href="/images/favicon.jpeg">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.jpeg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">易函123</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【ES6学习笔记】之 解构赋值</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-08-13 14:30:29
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%EF%BC%8CES6/" title="前端，ES6">
+                    <b>#</b> 前端，ES6
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/JavaScript/" title="JavaScript">
+                    #JavaScript
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/ES6/" title="ES6">
+                    #ES6
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h1><blockquote>
+<p>解构只是意味着将复杂的结构分解成更简单的部分。在 JavaScript 中，这种复杂的结构通常是一个对象或一个数组。使用解构语法，您可以从数组和对象中提取更小的片段。解构语法可用于变量声明或变量赋值。您还可以使用嵌套解构语法来处理嵌套结构。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// old</span></span><br><span class="line"><span class="keyword">const</span> student = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;John Doe&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">16</span>,</span><br><span class="line">  <span class="attr">scores</span>: &#123;</span><br><span class="line">    <span class="attr">maths</span>: <span class="number">74</span>,</span><br><span class="line">    <span class="attr">english</span>: <span class="number">63</span>,</span><br><span class="line">    <span class="attr">science</span>: <span class="number">85</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">displaySummary</span>(<span class="params">student</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello, &#x27;</span> + student.<span class="property">name</span>)</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Your Maths score is &#x27;</span> + (student.<span class="property">scores</span>.<span class="property">maths</span> || <span class="number">0</span>))</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Your English score is &#x27;</span> + (student.<span class="property">scores</span>.<span class="property">english</span> || <span class="number">0</span>))</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Your Science score is &#x27;</span> + (student.<span class="property">scores</span>.<span class="property">science</span> || <span class="number">0</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">displaySummary</span>(student)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Hello, John Doe</span></span><br><span class="line"><span class="comment">// Your Maths score is 74</span></span><br><span class="line"><span class="comment">// Your English score is 63</span></span><br><span class="line"><span class="comment">// Your Science score is 85</span></span><br></pre></td></tr></table></figure>
+
+<p>用 ES6 结构赋值，我们可以这么写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES6</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">displaySummary</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">  name,</span></span><br><span class="line"><span class="params">  scores: &#123; maths = <span class="number">0</span>, english = <span class="number">0</span>, science = <span class="number">0</span> &#125;,</span></span><br><span class="line"><span class="params">&#125;</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello, &#x27;</span> + name)</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Your Maths score is &#x27;</span> + maths)</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Your English score is &#x27;</span> + english)</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Your Science score is &#x27;</span> + science)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h1><p>对象解构构像是：用变量声明属性，变量值即为属性值，简单来说，就是提取对象中的属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> student = &#123;</span><br><span class="line">  <span class="attr">firstname</span>: <span class="string">&#x27;Glad&#x27;</span>,</span><br><span class="line">  <span class="attr">lastname</span>: <span class="string">&#x27;Chinda&#x27;</span>,</span><br><span class="line">  <span class="attr">country</span>: <span class="string">&#x27;Nigeria&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Object Destructuring</span></span><br><span class="line"><span class="keyword">const</span> &#123; firstname, lastname, country &#125; = student</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(firstname, lastname, country) <span class="comment">// Glad Chinda Nigeria</span></span><br></pre></td></tr></table></figure>
+
+<p>利用解构给变量重新赋值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Initialize local variables</span></span><br><span class="line"><span class="keyword">let</span> country = <span class="string">&#x27;Canada&#x27;</span></span><br><span class="line"><span class="keyword">let</span> firstname = <span class="string">&#x27;John&#x27;</span></span><br><span class="line"><span class="keyword">let</span> lastname = <span class="string">&#x27;Doe&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> student = &#123;</span><br><span class="line">  <span class="attr">firstname</span>: <span class="string">&#x27;Glad&#x27;</span>,</span><br><span class="line">  <span class="attr">lastname</span>: <span class="string">&#x27;Chinda&#x27;</span>,</span><br><span class="line">  <span class="attr">country</span>: <span class="string">&#x27;Nigeria&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Reassign firstname and lastname using destructuring</span></span><br><span class="line"><span class="comment">// Enclose in a pair of parentheses, since this is an assignment expression</span></span><br><span class="line">;(&#123; firstname, lastname &#125; = student)</span><br><span class="line"></span><br><span class="line"><span class="comment">// country remains unchanged (Canada)</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(firstname, lastname, country) <span class="comment">// Glad Chinda Canada</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码，用解构赋值的方式重新给 firstname, lastname 变量赋值，所以后面打印的时候，firstname, lastname 显示是 student 内部的 firstname, lastname。country 并未重新赋值，所以还是之前定义的名字。如果将中间的代码改为<code>(&#123; firstname, lastname , country&#125; = student);</code>。那么, country 的值也会被重新赋值，为’Nigeria’</p>
+<p>下面看下嵌套对象的结构：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> student = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;John Doe&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">16</span>,</span><br><span class="line">  <span class="attr">scores</span>: &#123;</span><br><span class="line">    <span class="attr">maths</span>: <span class="number">74</span>,</span><br><span class="line">    <span class="attr">english</span>: <span class="number">63</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// We define 3 local variables: name, maths, science</span></span><br><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">  name,</span><br><span class="line">  <span class="attr">scores</span>: &#123; maths, science = <span class="number">50</span> &#125;,</span><br><span class="line">&#125; = student</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(</span><br><span class="line">  <span class="string">`<span class="subst">$&#123;name&#125;</span> scored <span class="subst">$&#123;maths&#125;</span> in Maths and <span class="subst">$&#123;science&#125;</span> in Elementary Science.`</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// John Doe scored 74 in Maths and 50 in Elementary Science.</span></span><br></pre></td></tr></table></figure>
+
+<p>使用嵌套对象解构时，要小心避免使用空的嵌套对象字面量。虽然它是有效的语法，但它实际上没有赋值。例如，上面的 science，如果改成 <code>const &#123; name, scores: &#123;maths, science&#125; &#125; = student;</code>。那么<code>science</code>的值将是<code>undefined</code></p>
+<p>点运算配合解构赋值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;John Doe&#x27;</span>,</span><br><span class="line">  <span class="attr">country</span>: <span class="string">&#x27;Canada&#x27;</span>,</span><br><span class="line">  <span class="attr">city</span>: <span class="string">&#x27;shenzhen&#x27;</span>,</span><br><span class="line">  <span class="attr">org</span>: <span class="string">&#x27;123&#x27;</span>,</span><br><span class="line">  <span class="attr">id</span>: <span class="string">&#x27;1&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Assign default value of 25 to age if undefined</span></span><br><span class="line"><span class="keyword">const</span> &#123; id = <span class="string">&#x27;&#x27;</span>, ...all &#125; = person</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(all) <span class="comment">//&#123; name: &#x27;John Doe&#x27;,country: &#x27;Canada&#x27;,city:&#x27;shenzhen&#x27;,org:&#x27;123&#x27;,&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>从案例中我们可以可以通过点运算+对象解构赋值，可以去除对象的属性，并将剩余属性赋值给<code>all</code>。</p>
+<ul>
+<li>从对象中取多个属性，有了新的处理。</li>
+<li>从对象中无损删除属性，有了新的处理。</li>
+</ul>
+<p>当然我们也可以删除多个属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const person = &#123;</span><br><span class="line">    name: &#x27;John Doe&#x27;,</span><br><span class="line">    country: &#x27;Canada&#x27;,</span><br><span class="line">    city:&#x27;shenzhen&#x27;,</span><br><span class="line">    org:&#x27;123&#x27;,</span><br><span class="line">    id:&#x27;1&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// Assign default value of 25 to age if undefined</span><br><span class="line">const &#123; id=&quot;&quot;,name=&quot;&quot;, ...all &#125; = person;</span><br><span class="line">console.log(all) //&#123;country: &#x27;Canada&#x27;,city:&#x27;shenzhen&#x27;,org:&#x27;123&#x27;&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="数组解构"><a href="#数组解构" class="headerlink" title="数组解构"></a>数组解构</h1><blockquote>
+<p>在数组解构中，您在赋值表达式的左侧使用数组文字。数组文字上的每个变量名都映射到解构数组上同一索引处的相应项目。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> rgb = [<span class="number">255</span>, <span class="number">200</span>, <span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// Array Destructuring</span></span><br><span class="line"><span class="keyword">const</span> [red, green, blue] = rgb</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`R: <span class="subst">$&#123;red&#125;</span>, G: <span class="subst">$&#123;green&#125;</span>, B: <span class="subst">$&#123;blue&#125;</span>`</span>) <span class="comment">// R: 255, G: 200, B: 0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="逗号可以跳过元素"><a href="#逗号可以跳过元素" class="headerlink" title="逗号可以跳过元素"></a>逗号可以跳过元素</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [, , x] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="数组点运算"><a href="#数组点运算" class="headerlink" title="数组点运算"></a>数组点运算</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [x, ...y] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x, y) <span class="comment">// 1 [2,3,4]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x, y, ...z] = [<span class="string">&#x27;a&#x27;</span>] <span class="comment">// x=&#x27;a&#x27;; y=undefined; z=[]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x, ...[y, z]] = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]</span><br><span class="line"><span class="comment">// x = &#x27;a&#x27;; y = &#x27;b&#x27;; z = &#x27;c&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> map) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(key + <span class="string">&#x27; is &#x27;</span> + value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="交换值"><a href="#交换值" class="headerlink" title="交换值"></a>交换值</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">;[x, y] = [y, x]</span><br></pre></td></tr></table></figure>
+
+<h4 id="数组删除元素"><a href="#数组删除元素" class="headerlink" title="数组删除元素"></a>数组删除元素</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [first, ...rest] = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]</span><br><span class="line"><span class="comment">// first = &#x27;a&#x27;; rest = [&#x27;b&#x27;, &#x27;c&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="克隆数组"><a href="#克隆数组" class="headerlink" title="克隆数组"></a>克隆数组</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> rainbow = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;orange&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;indigo&#x27;</span>, <span class="string">&#x27;violet&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// Cloning with array destructuring and spread operator</span></span><br><span class="line"><span class="keyword">const</span> [...rainbowClone] = rainbow</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(rainbow === rainbowClone) <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(rainbowClone) <span class="comment">// [&#x27;red&#x27;, &#x27;orange&#x27;, &#x27;yellow&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;, &#x27;indigo&#x27;, &#x27;violet&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="字符串解构"><a href="#字符串解构" class="headerlink" title="字符串解构"></a>字符串解构</h1><p>字符串也可以解构赋值。这是因为此时，字符串被转换成了一个类似数组的对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [a, b, c, d, e] = <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">a <span class="comment">// &quot;h&quot;</span></span><br><span class="line">b <span class="comment">// &quot;e&quot;</span></span><br><span class="line">c <span class="comment">// &quot;l&quot;</span></span><br><span class="line">d <span class="comment">// &quot;l&quot;</span></span><br><span class="line">e <span class="comment">// &quot;o&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>属性解构赋值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123; <span class="attr">length</span>: len &#125; = <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">len <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>原文地址</strong>： <a target="_blank" rel="noopener" href="https://github.com/yihan12/build-up_ES6-ES12/blob/main/variable/Destructuring.md">Destructuring</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/08/13/ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%B9%8B%20%E5%8F%98%E9%87%8F/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-08-13 14:30:29
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF%EF%BC%8CES6/" title="前端，ES6">
+                        <b>#</b> 前端，ES6
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/JavaScript/" title="JavaScript">
+                        #JavaScript
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/ES6/" title="ES6">
+                        #ES6
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/08/13/%E6%B5%8F%E8%A7%88%E5%99%A8/%20%E3%80%90%E6%B5%8F%E8%A7%88%E5%99%A8%E3%80%91%E4%B9%8B%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%A7%88"><span class="toc-text">概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E8%A7%A3%E6%9E%84"><span class="toc-text">对象解构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E8%A7%A3%E6%9E%84"><span class="toc-text">数组解构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%97%E5%8F%B7%E5%8F%AF%E4%BB%A5%E8%B7%B3%E8%BF%87%E5%85%83%E7%B4%A0"><span class="toc-text">逗号可以跳过元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%82%B9%E8%BF%90%E7%AE%97"><span class="toc-text">数组点运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="toc-text">循环</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E5%80%BC"><span class="toc-text">交换值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="toc-text">数组删除元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%8B%E9%9A%86%E6%95%B0%E7%BB%84"><span class="toc-text">克隆数组</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E6%9E%84"><span class="toc-text">字符串解构</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2023 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%B9%8B%20%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F08%2F13%2FES6%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2F%25E3%2580%2590ES6%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%25E3%2580%2591%25E4%25B9%258B%25E8%25A7%25A3%25E6%259E%2584%25E8%25B5%258B%25E5%2580%25BC%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/08/13/ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%B9%8B%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
