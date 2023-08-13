@@ -13,7 +13,7 @@
   
   <title>
     
-      js去除中括号 
+      【Echarts使用】之 x/y轴刻度、文字、轴线样式、分割线 
       
       
       |
@@ -161,11 +161,11 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">js去除中括号</div>
+      <div class="post-title">【Echarts使用】之 x/y轴刻度、文字、轴线样式、分割线</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2023-08-13 14:43:05
+          2023-08-13 20:00:34
         </span>
         
               <span class="post-categories">
@@ -178,8 +178,14 @@
                 </span>
                 
                 <span class="span--category">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/%E6%AD%A3%E5%88%99/" title="正则">
-                    <b>#</b> 正则
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/Echarts/" title="Echarts">
+                    <b>#</b> Echarts
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/Echarts/xAxis/" title="xAxis">
+                    <b>#</b> xAxis
                   </a>
                 </span>
                 
@@ -189,14 +195,14 @@
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/js/" title="js">
-                    #js
+                  <a href="/tags/%E5%89%8D%E7%AB%AF/" title="前端">
+                    #前端
                   </a>
                 </span>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/%E6%AD%A3%E5%88%99/" title="正则">
-                    #正则
+                  <a href="/tags/Echarts/" title="Echarts">
+                    #Echarts
                   </a>
                 </span>
                 
@@ -204,44 +210,24 @@
           
       </div>
       <div class="markdown-body">
-        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">&#x27;这是一个字符串[html]语句;[html]字符串很常见&#x27;</span>;&lt;br&gt;</span><br><span class="line"><span class="title function_">alert</span>(str.<span class="title function_">replace</span>(<span class="regexp">/\[|]/g</span>,<span class="string">&#x27;&#x27;</span>));<span class="comment">//移除字符串中的所有[]括号（不包括其内容）</span></span><br><span class="line"><span class="comment">//输出：这是一个字符串html语句;html字符串很常见&lt;br&gt;</span></span><br><span class="line"><span class="title function_">alert</span>(str.<span class="title function_">replace</span>(<span class="regexp">/\[.*?\]/g</span>,<span class="string">&#x27;&#x27;</span>));<span class="comment">//移除字符串中的所有[]括号（包括其内容）</span></span><br><span class="line"><span class="comment">//输出：这是一个字符串语句;字符串很常见</span></span><br></pre></td></tr></table></figure>
+        <h3 id="隐藏-x-y-轴刻度"><a href="#隐藏-x-y-轴刻度" class="headerlink" title="隐藏 x&#x2F;y 轴刻度"></a>隐藏 x&#x2F;y 轴刻度</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// x轴</span><br><span class="line">xAxis: &#123;</span><br><span class="line">    type: &#x27;category&#x27;,</span><br><span class="line">    splitLine: &#123; show: false &#125;,</span><br><span class="line">    data: [&#x27;11/25&#x27;, &#x27;11/26&#x27;, &#x27;11/27&#x27;, &#x27;11/28&#x27;, &#x27;11/29&#x27;, &#x27;11/30&#x27;, &#x27;12/1&#x27;],</span><br><span class="line">    axisTick: &#123;</span><br><span class="line">        show: false //隐藏x轴刻度</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;,</span><br><span class="line">// y轴</span><br><span class="line">yAxis: &#123;</span><br><span class="line">    type: &#x27;category&#x27;,</span><br><span class="line">    splitLine: &#123; show: false &#125;,</span><br><span class="line">    data: [&#x27;11/25&#x27;, &#x27;11/26&#x27;, &#x27;11/27&#x27;, &#x27;11/28&#x27;, &#x27;11/29&#x27;, &#x27;11/30&#x27;, &#x27;12/1&#x27;],</span><br><span class="line">    axisTick: &#123;</span><br><span class="line">        show: false //隐藏y轴刻度</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
-<h3 id="移除所有中括号-不包括其内容"><a href="#移除所有中括号-不包括其内容" class="headerlink" title="移除所有中括号,不包括其内容"></a>移除所有中括号,不包括其内容</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&#x27;[1,2,3,4,5,6,7,8]&#x27;</span></span><br><span class="line"><span class="keyword">let</span> newStr = str.<span class="title function_">replace</span>(<span class="regexp">/\[|]/g</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newStr) <span class="comment">//1,2,3,4,5,6,7,8</span></span><br></pre></td></tr></table></figure>
+<h3 id="更改-x-y-轴文字"><a href="#更改-x-y-轴文字" class="headerlink" title="更改 x&#x2F;y 轴文字"></a>更改 x&#x2F;y 轴文字</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//x轴</span><br><span class="line">xAxis: &#123;</span><br><span class="line">    type: &#x27;category&#x27;,</span><br><span class="line">    // offset: 40,</span><br><span class="line">    splitLine: &#123; show: false &#125;,</span><br><span class="line">    data: [],</span><br><span class="line">    axisLabel: &#123;</span><br><span class="line">        show: true,</span><br><span class="line">        textStyle: &#123;</span><br><span class="line">            color: &#x27;#6B6E7F&#x27;,  //更改坐标轴文字颜色</span><br><span class="line">            fontSize: 9      //更改坐标轴文字大小</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">//y轴</span><br><span class="line">yAxis: &#123;</span><br><span class="line">    type: &#x27;category&#x27;,</span><br><span class="line">    // offset: 40,</span><br><span class="line">    splitLine: &#123; show: false &#125;,</span><br><span class="line">    data: [],</span><br><span class="line">    axisLabel: &#123;</span><br><span class="line">        show: true,</span><br><span class="line">        textStyle: &#123;</span><br><span class="line">            color: &#x27;#6B6E7F&#x27;,  //更改坐标轴文字颜色</span><br><span class="line">            fontSize: 9      //更改坐标轴文字大小</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
-<h3 id="移除所有中括号-包括其内容"><a href="#移除所有中括号-包括其内容" class="headerlink" title="移除所有中括号,包括其内容"></a>移除所有中括号,包括其内容</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&#x27;[1,2,3,4,5,6,7,8]&#x27;</span></span><br><span class="line"><span class="keyword">let</span> newStr = str.<span class="title function_">replace</span>(<span class="regexp">/\[.*?\]/g</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newStr) <span class="comment">//&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="更改-x-y-轴线样式"><a href="#更改-x-y-轴线样式" class="headerlink" title="更改 x&#x2F;y 轴线样式"></a>更改 x&#x2F;y 轴线样式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// x轴</span><br><span class="line">xAxis: &#123;</span><br><span class="line">    type: &#x27;category&#x27;,</span><br><span class="line">    // offset: 40,</span><br><span class="line">    splitLine: &#123; show: false &#125;,</span><br><span class="line">    data: [],</span><br><span class="line">    axisLine: &#123;</span><br><span class="line">        show: false,</span><br><span class="line">        lineStyle: &#123;</span><br><span class="line">            type: &#x27;dashed&#x27;,</span><br><span class="line">            color: &#x27;#86899D&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; //0 轴线设置样式</span><br><span class="line">&#125;,</span><br><span class="line">// y轴</span><br><span class="line">yAxis: &#123;</span><br><span class="line">    type: &#x27;category&#x27;,</span><br><span class="line">    // offset: 40,</span><br><span class="line">    splitLine: &#123; show: false &#125;,</span><br><span class="line">    data: [],</span><br><span class="line">    axisLine: &#123;</span><br><span class="line">        show: false,</span><br><span class="line">        lineStyle: &#123;</span><br><span class="line">            type: &#x27;dashed&#x27;,</span><br><span class="line">            color: &#x27;#86899D&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; //0 轴线设置样式</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
-<span id="more"></span>
-
-<h3 id="正则表达式符号释义"><a href="#正则表达式符号释义" class="headerlink" title="正则表达式符号释义"></a>正则表达式符号释义</h3><ul>
-<li><p>“&quot;：将下一个字符标记为一个特殊字符、或一个原义字符、或一个向后引用、或一个八进制转义符。例如，“n”匹配字符“n”。“\n”匹配一个换行符。串行“\”匹配“\”而“(”则匹配“(”；</p>
-</li>
-<li><p>“|”：或的意思；</p>
-</li>
-<li><p>“&#x2F;g”：全局搜索。由于此处要去除字符串中所有中括号，因此正则中要开启全局搜索；</p>
-</li>
-<li><p>“.”：表示除换行符和其他 Unicode 行终止符之外的任意字符；</p>
-</li>
-<li><p>“<em>“：匹配前面的子表达式零次或多次。例如，zo</em>能匹配“z”以及“zoo”。*等价于{0,}；</p>
-</li>
-<li><p>“?”：匹配前面的子表达式零次或一次。例如，“do(es)?”可以匹配“does”或“does”中的“do”。?等价于{0,1}。（贪婪模式）</p>
-</li>
-</ul>
+<h3 id="x-y-轴分隔线"><a href="#x-y-轴分隔线" class="headerlink" title="x&#x2F;y 轴分隔线"></a>x&#x2F;y 轴分隔线</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">// x轴</span><br><span class="line">xAxis: &#123;</span><br><span class="line">    type: &#x27;value&#x27;,</span><br><span class="line">    axisLabel: &#123;</span><br><span class="line">        show: false,</span><br><span class="line">        interval: &#x27;auto&#x27;,</span><br><span class="line">        formatter: &#x27;&#123;value&#125; AM&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    axisTick: &#123;</span><br><span class="line">        show: false</span><br><span class="line">    &#125;,</span><br><span class="line">    splitLine: &#123;</span><br><span class="line">        show: false,</span><br><span class="line">        lineStyle: &#123;</span><br><span class="line">            type: &#x27;dashed&#x27;,</span><br><span class="line">            color: &#x27;#86899D&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; //设置y轴分割线样式</span><br><span class="line">&#125;,</span><br><span class="line">// y轴</span><br><span class="line">yAxis: &#123;</span><br><span class="line">    type: &#x27;value&#x27;,</span><br><span class="line">    axisLabel: &#123;</span><br><span class="line">        show: false,</span><br><span class="line">        interval: &#x27;auto&#x27;,</span><br><span class="line">        formatter: &#x27;&#123;value&#125; AM&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    min: 20,</span><br><span class="line">    max: 33, // y轴的展示范围</span><br><span class="line">    axisTick: &#123;</span><br><span class="line">        show: false</span><br><span class="line">    &#125;,</span><br><span class="line">    splitLine: &#123;</span><br><span class="line">        show: false,</span><br><span class="line">        lineStyle: &#123;</span><br><span class="line">            type: &#x27;dashed&#x27;,</span><br><span class="line">            color: &#x27;#86899D&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; //设置y轴分割线样式</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2022/03/10/Echarts/echats%E6%8A%98%E7%BA%BF--%E6%8B%90%E7%82%B9%E5%9C%86%E7%9A%84%E6%A0%B7%E5%BC%8F%EF%BC%88%E5%86%85%E5%9C%86%E5%A4%96%E5%9C%86%EF%BC%89/" target="_self">
-                <i class="iconfont icon-chevronleft"></i>
-                <span>Prev</span>
-              </a>
-            
           </div>
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2023-08-13 14:43:05
+              2023-08-13 20:00:34
             </span>
             
                   <span class="post-categories">
@@ -254,8 +240,14 @@
                     </span>
                     
                     <span class="span--category">
-                      <a href="/categories/%E5%89%8D%E7%AB%AF/%E6%AD%A3%E5%88%99/" title="正则">
-                        <b>#</b> 正则
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/Echarts/" title="Echarts">
+                        <b>#</b> Echarts
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/Echarts/xAxis/" title="xAxis">
+                        <b>#</b> xAxis
                       </a>
                     </span>
                     
@@ -265,14 +257,14 @@
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/js/" title="js">
-                        #js
+                      <a href="/tags/%E5%89%8D%E7%AB%AF/" title="前端">
+                        #前端
                       </a>
                     </span>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/%E6%AD%A3%E5%88%99/" title="正则">
-                        #正则
+                      <a href="/tags/Echarts/" title="Echarts">
+                        #Echarts
                       </a>
                     </span>
                     
@@ -281,7 +273,7 @@
           </div>
           <div class="post-foot-prev">
             
-              <a href="/2023/08/13/ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%B9%8B%20%E5%8F%98%E9%87%8F/" target="_self">
+              <a href="/2022/03/10/Echarts/echarts--%E5%9F%BA%E5%87%86%E7%BA%BFmarkLine/" target="_self">
                 <span>Next</span>
                 <i class="iconfont icon-chevronright"></i>
               </a>
@@ -298,7 +290,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E6%89%80%E6%9C%89%E4%B8%AD%E6%8B%AC%E5%8F%B7-%E4%B8%8D%E5%8C%85%E6%8B%AC%E5%85%B6%E5%86%85%E5%AE%B9"><span class="toc-text">移除所有中括号,不包括其内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E6%89%80%E6%9C%89%E4%B8%AD%E6%8B%AC%E5%8F%B7-%E5%8C%85%E6%8B%AC%E5%85%B6%E5%86%85%E5%AE%B9"><span class="toc-text">移除所有中括号,包括其内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%A6%E5%8F%B7%E9%87%8A%E4%B9%89"><span class="toc-text">正则表达式符号释义</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%90%E8%97%8F-x-y-%E8%BD%B4%E5%88%BB%E5%BA%A6"><span class="toc-text">隐藏 x&#x2F;y 轴刻度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9-x-y-%E8%BD%B4%E6%96%87%E5%AD%97"><span class="toc-text">更改 x&#x2F;y 轴文字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9-x-y-%E8%BD%B4%E7%BA%BF%E6%A0%B7%E5%BC%8F"><span class="toc-text">更改 x&#x2F;y 轴线样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#x-y-%E8%BD%B4%E5%88%86%E9%9A%94%E7%BA%BF"><span class="toc-text">x&#x2F;y 轴分隔线</span></a></li></ol>
       
     </div>
   </div>
@@ -584,12 +576,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + js%E5%8E%BB%E9%99%A4%E4%B8%AD%E6%8B%AC%E5%8F%B7 + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F08%2F13%2Fjs%25E5%258E%25BB%25E9%2599%25A4%25E4%25B8%25AD%25E6%258B%25AC%25E5%258F%25B7%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90Echarts%E4%BD%BF%E7%94%A8%E3%80%91%E4%B9%8B%20x%2Fy%E8%BD%B4%E5%88%BB%E5%BA%A6%E3%80%81%E6%96%87%E5%AD%97%E3%80%81%E8%BD%B4%E7%BA%BF%E6%A0%B7%E5%BC%8F%E3%80%81%E5%88%86%E5%89%B2%E7%BA%BF + '&url=' + http%3A%2F%2Fexample.com%2F2022%2F03%2F10%2FEcharts%2Fecharts--xy%25E8%25BD%25B4%25E5%2588%25BB%25E5%25BA%25A6%25E3%2580%2581%25E6%2596%2587%25E5%25AD%2597%25E3%2580%2581%25E8%25BD%25B4%25E7%25BA%25BF%25E6%25A0%25B7%25E5%25BC%258F%25E3%2580%2581%25E5%2588%2586%25E9%259A%2594%25E7%25BA%25BF%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/08/13/js%E5%8E%BB%E9%99%A4%E4%B8%AD%E6%8B%AC%E5%8F%B7/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2022/03/10/Echarts/echarts--xy%E8%BD%B4%E5%88%BB%E5%BA%A6%E3%80%81%E6%96%87%E5%AD%97%E3%80%81%E8%BD%B4%E7%BA%BF%E6%A0%B7%E5%BC%8F%E3%80%81%E5%88%86%E9%9A%94%E7%BA%BF/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         

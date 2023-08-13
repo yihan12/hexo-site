@@ -13,7 +13,7 @@
   
   <title>
     
-      archive_a: 2023/8 
+      【Echarts使用】之 设置柱子borderRadius 
       
       
       |
@@ -116,156 +116,187 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2023</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【Echarts使用】之 设置柱子borderRadius</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-08-13 20:02:48
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/Echarts/" title="Echarts">
+                    <b>#</b> Echarts
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/Echarts/borderRadius/" title="borderRadius">
+                    <b>#</b> borderRadius
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E5%89%8D%E7%AB%AF/" title="前端">
+                    #前端
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Echarts/" title="Echarts">
+                    #Echarts
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">series:[</span><br><span class="line">    &#123;</span><br><span class="line">        type: &#x27;bar&#x27;,</span><br><span class="line">        stack: &#x27;Total&#x27;,</span><br><span class="line">        itemStyle: &#123;</span><br><span class="line">            borderColor: bgColor,</span><br><span class="line">            borderRadius: [4, 4, 4, 4], // 圆柱</span><br><span class="line">            color: bgColor</span><br><span class="line">        &#125;,</span><br><span class="line">        emphasis: &#123;</span><br><span class="line">            itemStyle: &#123;</span><br><span class="line">                borderColor: bgColor,</span><br><span class="line">                color: bgColor</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2022/03/10/Echarts/echarts%E5%9B%BE%E4%BE%8B--%E9%80%89%E4%B8%AD%E7%8A%B6%E6%80%81%EF%BC%88%E9%BB%98%E8%AE%A4%E4%B8%8D%E6%98%BE%E7%A4%BA%E7%BD%AE%E7%81%B0%EF%BC%89/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-08-13 20:02:48
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/Echarts/" title="Echarts">
+                        <b>#</b> Echarts
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/Echarts/borderRadius/" title="borderRadius">
+                        <b>#</b> borderRadius
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E5%89%8D%E7%AB%AF/" title="前端">
+                        #前端
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Echarts/" title="Echarts">
+                        #Echarts
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2022/03/10/Echarts/echarts%E6%8A%98%E7%BA%BF--%E6%97%A0%E6%95%B0%E6%8D%AE%E6%97%B6%E8%BF%9E%E7%BA%BF%E4%B8%8E%E5%90%A6/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="【浏览器】之同源策略">
-        <div class="time-m-d">08-13</div>
-        <div class="title">
-          <a href="/2023/08/13/%E6%B5%8F%E8%A7%88%E5%99%A8/%20%E3%80%90%E6%B5%8F%E8%A7%88%E5%99%A8%E3%80%91%E4%B9%8B%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">
-            <span>【浏览器】之同源策略</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="【ES6学习笔记】之 解构赋值">
-        <div class="time-m-d">08-13</div>
-        <div class="title">
-          <a href="/2023/08/13/ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%B9%8B%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/">
-            <span>【ES6学习笔记】之 解构赋值</span>
-          </a>
-        </div>
-      </div>
+
     
-      <div class="post-item" title="【ES6学习笔记】之 变量">
-        <div class="time-m-d">08-13</div>
-        <div class="title">
-          <a href="/2023/08/13/ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%B9%8B%20%E5%8F%98%E9%87%8F/">
-            <span>【ES6学习笔记】之 变量</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="js去除中括号">
-        <div class="time-m-d">08-13</div>
-        <div class="title">
-          <a href="/2023/08/13/js%E5%8E%BB%E9%99%A4%E4%B8%AD%E6%8B%AC%E5%8F%B7/">
-            <span>js去除中括号</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2022</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="【Echarts使用】之 拐点圆样式">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2022/03/10/Echarts/echats%E6%8A%98%E7%BA%BF--%E6%8B%90%E7%82%B9%E5%9C%86%E7%9A%84%E6%A0%B7%E5%BC%8F%EF%BC%88%E5%86%85%E5%9C%86%E5%A4%96%E5%9C%86%EF%BC%89/">
-            <span>【Echarts使用】之 拐点圆样式</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【Echarts使用】之 设置柱状图渐进式">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2022/03/10/Echarts/echarts%E6%9F%B1%E5%BD%A2--%E8%AE%BE%E7%BD%AE%E6%9F%B1%E5%AD%90%E5%A4%9A%E4%B8%AA%E9%A2%9C%E8%89%B2%EF%BC%88%E6%B8%90%E8%BF%9B%E8%89%B2%EF%BC%89/">
-            <span>【Echarts使用】之 设置柱状图渐进式</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【Echarts使用】之 无拐点">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2022/03/10/Echarts/echarts%E6%8A%98%E7%BA%BF%E5%9B%BE--%E6%97%A0%E6%8B%90%E7%82%B9%EF%BC%8C%E6%8A%98%E7%BA%BF%E6%A0%B7%E5%BC%8F/">
-            <span>【Echarts使用】之 无拐点</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【Echarts使用】之 无数据是连线">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2022/03/10/Echarts/echarts%E6%8A%98%E7%BA%BF--%E6%97%A0%E6%95%B0%E6%8D%AE%E6%97%B6%E8%BF%9E%E7%BA%BF%E4%B8%8E%E5%90%A6/">
-            <span>【Echarts使用】之 无数据是连线</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【Echarts使用】之 设置柱子borderRadius">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2022/03/10/Echarts/echarts%E5%9C%86%E6%9F%B1--%E8%AE%BE%E7%BD%AE%E6%9F%B1%E5%AD%90%E7%9A%84borderRadius/">
-            <span>【Echarts使用】之 设置柱子borderRadius</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【Echarts使用】之 图例选中状态">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2022/03/10/Echarts/echarts%E5%9B%BE%E4%BE%8B--%E9%80%89%E4%B8%AD%E7%8A%B6%E6%80%81%EF%BC%88%E9%BB%98%E8%AE%A4%E4%B8%8D%E6%98%BE%E7%A4%BA%E7%BD%AE%E7%81%B0%EF%BC%89/">
-            <span>【Echarts使用】之 图例选中状态</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【Echarts使用】之 设置从原点开始">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2022/03/10/Echarts/echarts%E8%AE%BE%E7%BD%AE%E4%BB%8E%E5%8E%9F%E7%82%B9%E5%BC%80%E5%A7%8B/">
-            <span>【Echarts使用】之 设置从原点开始</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【Echarts使用】之 grid">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2022/03/10/Echarts/echarts--%E4%B8%8A%E4%B8%8B%E5%B7%A6%E5%8F%B3%E7%9A%84%E8%B7%9D%E7%A6%BB%EF%BC%88grid%EF%BC%89/">
-            <span>【Echarts使用】之 grid</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【Echarts使用】之基准线markLine">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2022/03/10/Echarts/echarts--%E5%9F%BA%E5%87%86%E7%BA%BFmarkLine/">
-            <span>【Echarts使用】之基准线markLine</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【Echarts使用】之 x/y轴刻度、文字、轴线样式、分割线">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2022/03/10/Echarts/echarts--xy%E8%BD%B4%E5%88%BB%E5%BA%A6%E3%80%81%E6%96%87%E5%AD%97%E3%80%81%E8%BD%B4%E7%BA%BF%E6%A0%B7%E5%BC%8F%E3%80%81%E5%88%86%E9%9A%94%E7%BA%BF/">
-            <span>【Echarts使用】之 x/y轴刻度、文字、轴线样式、分割线</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -520,6 +551,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90Echarts%E4%BD%BF%E7%94%A8%E3%80%91%E4%B9%8B%20%E8%AE%BE%E7%BD%AE%E6%9F%B1%E5%AD%90borderRadius + '&url=' + http%3A%2F%2Fexample.com%2F2022%2F03%2F10%2FEcharts%2Fecharts%25E5%259C%2586%25E6%259F%25B1--%25E8%25AE%25BE%25E7%25BD%25AE%25E6%259F%25B1%25E5%25AD%2590%25E7%259A%2584borderRadius%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2022/03/10/Echarts/echarts%E5%9C%86%E6%9F%B1--%E8%AE%BE%E7%BD%AE%E6%9F%B1%E5%AD%90%E7%9A%84borderRadius/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
