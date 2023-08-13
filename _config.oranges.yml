@@ -117,12 +117,21 @@ friends:
   # nickname: 昵称
   # site: 地址
   # meta: 描述
-  - nickname: Zcheng
-    site: https://zcheng.site/
-    meta:
-  - nickname: Hexo
-    site: https://hexo.io/
-    meta:
+  - nickname: 思否
+    site: https://segmentfault.com/u/yihan123
+    meta: 我知道吹过的牛b，也会随青春一笑了之！！
+  - nickname: 博客园
+    site: https://www.cnblogs.com/yihan123/
+    meta: 学习不精的技术打杂青年
+  - nickname: CSDN
+    site: https://blog.csdn.net/qq_43485006
+    meta: 易函123
+  - nickname: 掘金
+    site: https://juejin.cn/user/3016715638158381
+    meta: 吾生也有涯，而知也无涯 。
+  - nickname: GitHub
+    site: https://github.com/yihan12
+    meta: 吾生也有涯，而知也无涯 。以有涯随无涯，殆已！已而为知者，殆而已矣！为善无近名，为恶无近刑。缘督以为经，可以保身，可以全生，可以养亲，可以尽年。
 
 # 页脚信息
 footer:
@@ -136,7 +145,7 @@ footer:
     # 按需取消注释以启用
     - name: github
       icon: github
-      path: https://github.com/zchengsite/hexo-theme-oranges
+      path: https://github.com/yihan12
     # -
     #   name: email
     #   icon: envelope
