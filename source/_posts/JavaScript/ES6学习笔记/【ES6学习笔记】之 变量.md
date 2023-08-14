@@ -2,7 +2,7 @@
 title: 【ES6学习笔记】之 变量
 date:
 tags: [JavaScript, ES6]
-categories: [前端, ES6, 变量]
+categories: [前端, JavaScript, ES6, 变量]
 ---
 
 # 概览

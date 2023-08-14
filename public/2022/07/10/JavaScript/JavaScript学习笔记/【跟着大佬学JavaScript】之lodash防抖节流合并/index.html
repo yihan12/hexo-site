@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="keywords" content="个人,建站,博客,爱好,娱乐">
+  
+  <meta name="author" content="易函123" />
+  <meta name="description" content="我知道吹过的牛b，也会随青春一笑了之!!" />
+  
+  
+  <title>
+    
+      【跟着大佬学JavaScript】之lodash防抖节流合并 
+      
+      
+      |
+    
+     易函123
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.jpeg">
+    <link rel="icon" href="/images/favicon.jpeg">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.jpeg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">易函123</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【跟着大佬学JavaScript】之lodash防抖节流合并</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-08-14 12:10:32
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/" title="JavaScript">
+                    <b>#</b> JavaScript
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/lodash%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="lodash源码分析">
+                    <b>#</b> lodash源码分析
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/lodash%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/" title="防抖节流">
+                    <b>#</b> 防抖节流
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/JavaScript/" title="JavaScript">
+                    #JavaScript
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/lodash/" title="lodash">
+                    #lodash
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前面已经对防抖和节流有了介绍，这篇主要看 lodash 是如何将防抖和节流合并成一个函数的。</p>
+<p>初衷是深入 lodash，学习它内部的好代码并应用，同时也加深节流防抖的理解。这里会先从防抖开始一步步往后，由简入繁，直到最后实现整个函数。</p>
+<p>这里纯粹自己的理解，以及看了很多篇优质文章，希望能加深对节流防抖的理解，如果有不同意见或者看法，欢迎大家评论。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>前面虽然已经介绍过防抖和节流原理，这里为了加深印象，再搬过来。</p>
+<blockquote>
+<p><strong>防抖的原理</strong>：在 wait 时间内，持续触发某个事件。第一种情况：如果某个事件触发 wait 秒内又触发了该事件，就应该以新的事件 wait 等待时间为准，wait 秒后再执行此事件；第二种情况：如果某个事件触发 wait 秒后，未再触发该事件，则在 wait 秒后直接执行该事件。</p>
+</blockquote>
+<p>通俗点说：定义 wait&#x3D;3000，持续点击按钮，前后点击间隔都在 3 秒内，则在最后一次点击按钮后，等待 3 秒再执行 func 方法。如果点击完按钮，3 秒后未再次点击按钮，则 3 秒后直接执行 func 方法。</p>
+<blockquote>
+<p><strong>节流的原理</strong>：持续触发某事件，每隔一段时间，只执行一次。</p>
+</blockquote>
+<p>通俗点说，3 秒内多次调用函数，但是在 3 秒间隔内只执行一次，第一次执行后 3 秒 无视后面所有的函数调用请求，也不会延长时间间隔。3 秒间隔结束后则开始执行新的函数调用请求，然后在这新的 3 秒内依旧无视后面所有的函数调用请求，以此类推。</p>
+<p>简单来说：每隔单位时间（ 3 秒），只执行一次。</p>
+<h2 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h2><h3 id="一、引入代码部分"><a href="#一、引入代码部分" class="headerlink" title="一、引入代码部分"></a>一、引入代码部分</h3><p>首先看源码最前方的引入。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import isObject from &#x27;./isObject.js&#x27;</span><br><span class="line">import root from &#x27;./.internal/root.js&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>isObject 方法，直接拿出来，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function isObject(value) &#123;</span><br><span class="line">    const type = typeof value;</span><br><span class="line">    return value != null &amp;&amp; (type === &quot;object&quot; || type === &quot;function&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>root 的引入主要是 window。为了引出<code>window.requestAnimationFrame</code>。</p>
+<h3 id="二、requestAnimationFrame-代码"><a href="#二、requestAnimationFrame-代码" class="headerlink" title="二、requestAnimationFrame 代码"></a>二、requestAnimationFrame 代码</h3><p><code>window.requestAnimationFrame()</code>告诉浏览器希望执行动画并请求浏览器在下一次重绘之前调用指定的函数来更新动画，差不多 16ms 执行一次。</p>
+<p>lodash 这里使用<code>requestAnimationFrame</code>，主要是用户使用 debounce 函数未设置 wait 的情况下使用<code>requestAnimationFrame</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const useRAF = (!wait &amp;&amp; wait !== 0 &amp;&amp; typeof window.requestAnimationFrame === &#x27;function&#x27;)</span><br><span class="line">function startTimer(pendingFunc, wait) &#123;</span><br><span class="line">    if (useRAF) &#123;</span><br><span class="line">        window.cancelAnimationFrame(timerId)</span><br><span class="line">        return window.requestAnimationFrame(pendingFunc)</span><br><span class="line">    &#125;</span><br><span class="line">    return setTimeout(pendingFunc, wait)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function cancelTimer(id) &#123;</span><br><span class="line">    if (useRAF) &#123;</span><br><span class="line">        return window.cancelAnimationFrame(id)</span><br><span class="line">    &#125;</span><br><span class="line">    clearTimeout(id)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由代码<code>const useRAF = (!wait &amp;&amp; wait !== 0 &amp;&amp; typeof window.requestAnimationFrame === &#39;function&#39;)</code>不难看出,函数<strong>未传入 wait</strong>并且<strong>window.cancelAnimationFrame 函数存在</strong>这两种情况下操作<code>window.requestAnimationFrame</code></p>
+<h3 id="三、由简入繁输出防抖函数"><a href="#三、由简入繁输出防抖函数" class="headerlink" title="三、由简入繁输出防抖函数"></a>三、由简入繁输出防抖函数</h3><ul>
+<li><p><strong>首先</strong>，我们来看下<a target="_blank" rel="noopener" href="https://www.lodashjs.com/docs/lodash.debounce#_debouncefunc-wait0-options">lodash debounce API</a><br>这部分参数内容就直接摘抄在下方：<br>_ func (Function): 要防抖动的函数。<br>_ [wait&#x3D;0] (number): 需要延迟的毫秒数。<br>_ [options&#x3D;] (Object): 选项对象。<br>_ [options.leading&#x3D;false] (boolean): 指定在延迟开始前调用。<br>_ [options.maxWait] (number): 设置 func 允许被延迟的最大值。<br>_ [options.trailing&#x3D;true] (boolean): 指定在延迟结束后调用。</p>
+</li>
+<li><p><strong>然后</strong>，我们一般防抖函数，需要的参数是：<code>func</code>、<code>wait</code>、<code>immediate</code>这三个参数，对应 lodash，我们需要拿出这四个部分：</p>
+<ul>
+<li>func (Function): 要防抖动的函数。</li>
+<li>[wait&#x3D;0] (number): 需要延迟的毫秒数。</li>
+<li>[options&#x3D;] (Object): 选项对象。</li>
+<li>[options.leading&#x3D;false] (boolean): 指定在延迟开始前调用。</li>
+</ul>
+</li>
+<li><p><strong>接着</strong>，按照这个形式，先写出最简防抖方法。也就是这两部分参数的代码</p>
+<ul>
+<li>func (Function): 要防抖动的函数。</li>
+<li>[wait&#x3D;0] (number): 需要延迟的毫秒数。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">// 代码1</span><br><span class="line">function debounce(func, wait) &#123;</span><br><span class="line">    let timerId, // setTimeout 生成的定时器句柄</span><br><span class="line">      lastThis, // 保存上一次 this</span><br><span class="line">      lastArgs, // 保存上一次执行 debounced 的 arguments</span><br><span class="line">      result; // 函数 func 执行后的返回值，多次触发但未满足执行 func 条件时，返回 result</span><br><span class="line"></span><br><span class="line">    wait = +wait || 0; // 等待时间</span><br><span class="line"></span><br><span class="line">    // 没传 wait 时调用 window.requestAnimationFrame()</span><br><span class="line">    const useRAF =</span><br><span class="line">      !wait &amp;&amp;</span><br><span class="line">      wait !== 0 &amp;&amp;</span><br><span class="line">      typeof window.requestAnimationFrame === &quot;function&quot;;</span><br><span class="line"></span><br><span class="line">    // 取消debounce</span><br><span class="line">    function cancel() &#123;</span><br><span class="line">      if (timerId !== undefined) &#123;</span><br><span class="line">        cancelTimer(timerId);</span><br><span class="line">      &#125;</span><br><span class="line">      lastArgs = lastThis = timerId = result = undefined;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 开启定时器</span><br><span class="line">    // 1.未传wait时使用requestAnimationFrame</span><br><span class="line">    // 2.直接使用定时器</span><br><span class="line">    function startTimer(pendingFunc, wait) &#123;</span><br><span class="line">      if (useRAF) &#123;</span><br><span class="line">        window.cancelAnimationFrame(timerId);</span><br><span class="line">        return window.requestAnimationFrame(pendingFunc);</span><br><span class="line">      &#125;</span><br><span class="line">      return setTimeout(pendingFunc, wait);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 定时器回调函数，表示定时结束后的操作</span><br><span class="line">    function timerExpired(wait) &#123;</span><br><span class="line">      const time = Date.now();</span><br><span class="line">      timerId = startTimer(invokeFunc, wait);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 取消定时器</span><br><span class="line">    function cancelTimer(id) &#123;</span><br><span class="line">      if (useRAF) &#123;</span><br><span class="line">        return window.cancelAnimationFrame(id);</span><br><span class="line">      &#125;</span><br><span class="line">      clearTimeout(id);</span><br><span class="line">      timerId = undefined;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 执行函数,并将原函数的返回值result输出</span><br><span class="line">    function invokeFunc() &#123;</span><br><span class="line">      const args = lastArgs;</span><br><span class="line">      const thisArg = lastThis;</span><br><span class="line"></span><br><span class="line">      lastArgs = lastThis = undefined; // 清空当前函数指向的this,argumnents</span><br><span class="line">      result = func.apply(thisArg, args); // 绑定当前函数指向的this,argumnents</span><br><span class="line">      return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    const debounced = function (...args) &#123;</span><br><span class="line">      const time = Date.now(); // 获取当前时间</span><br><span class="line"></span><br><span class="line">      lastArgs = args;</span><br><span class="line">      lastThis = this;</span><br><span class="line"></span><br><span class="line">      if (timerId) &#123;</span><br><span class="line">        cancelTimer(timerId);</span><br><span class="line">      &#125;</span><br><span class="line">      if (timerId === undefined) &#123;</span><br><span class="line">        timerId = startTimer(timerExpired, wait);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    debounced.cancel = cancel;</span><br><span class="line">    return debounced;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>    看上述代码：
+    1. 多了未传wait情况，使用`window.requestAnimationFrame`。
+    2. 将定时器，绑定this，arguments、result和取消定时器等分函数拿了出来。
+</code></pre>
+<ul>
+<li><strong>再者</strong>，将 options 的 leading 加上。也就是 immediate 立即执行，组成完整的防抖函数。引入参数是下面这部分<ul>
+<li>func (Function): 要防抖动的函数。</li>
+<li>[wait&#x3D;0] (number): 需要延迟的毫秒数。</li>
+<li>[options&#x3D;] (Object): 选项对象。</li>
+<li>[options.leading&#x3D;false] (boolean): 指定在延迟开始前调用。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line">// 代码二</span><br><span class="line"></span><br><span class="line">function debounce(func, wait, options) &#123;</span><br><span class="line">    let timerId, // setTimeout 生成的定时器句柄</span><br><span class="line">      lastThis, // 保存上一次 this</span><br><span class="line">      lastArgs, // 保存上一次执行 debounced 的 arguments</span><br><span class="line">      result, // 函数 func 执行后的返回值，多次触发但未满足执行 func 条件时，返回 result</span><br><span class="line">      lastCallTime; // 上一次调用 debounce 的时间</span><br><span class="line"></span><br><span class="line">    let leading = false; // 判断是否立即执行，默认false</span><br><span class="line"></span><br><span class="line">    wait = +wait || 0;</span><br><span class="line"></span><br><span class="line">    // 从options中获取是否立即执行</span><br><span class="line">    if (isObject(options)) &#123;</span><br><span class="line">      leading = !!options.leading;</span><br><span class="line">    &#125;</span><br><span class="line">    // 没传 wait 时调用 window.requestAnimationFrame()</span><br><span class="line">    const useRAF =</span><br><span class="line">      !wait &amp;&amp;</span><br><span class="line">      wait !== 0 &amp;&amp;</span><br><span class="line">      typeof window.requestAnimationFrame === &quot;function&quot;;</span><br><span class="line"></span><br><span class="line">    // 取消debounce</span><br><span class="line">    function cancel() &#123;</span><br><span class="line">      if (timerId !== undefined) &#123;</span><br><span class="line">        cancelTimer(timerId);</span><br><span class="line">      &#125;</span><br><span class="line">      lastArgs = lastThis = timerId = result = lastCallTime = undefined;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 开启定时器</span><br><span class="line">    function startTimer(pendingFunc, wait) &#123;</span><br><span class="line">      if (useRAF) &#123;</span><br><span class="line">        window.cancelAnimationFrame(timerId);</span><br><span class="line">        return window.requestAnimationFrame(pendingFunc);</span><br><span class="line">      &#125;</span><br><span class="line">      return setTimeout(pendingFunc, wait);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 定时器回调函数，表示定时结束后的操作</span><br><span class="line">    function timerExpired(wait) &#123;</span><br><span class="line">      const time = Date.now();</span><br><span class="line">      // 1、是否需要执行</span><br><span class="line">      // 执行事件结束后的那次回调，否则重启定时器</span><br><span class="line">      if (shouldInvoke(time)) &#123;</span><br><span class="line">        return trailingEdge(time);</span><br><span class="line">      &#125;</span><br><span class="line">      // 2、否则 计算剩余等待时间，重启定时器，保证下一次时延的末尾触发</span><br><span class="line">      timerId = startTimer(timerExpired, wait);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 这里时触发后仍调用函数</span><br><span class="line">    function trailingEdge(time) &#123;</span><br><span class="line">      timerId = undefined;</span><br><span class="line"></span><br><span class="line">      // 只有当我们有 `lastArgs` 时才调用，这意味着`func&#x27;已经被调用过一次。</span><br><span class="line">      if (lastArgs) &#123;</span><br><span class="line">        return invokeFunc(time);</span><br><span class="line">      &#125;</span><br><span class="line">      lastArgs = lastThis = undefined;</span><br><span class="line">      return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 取消定时器</span><br><span class="line">    function cancelTimer(id) &#123;</span><br><span class="line">      if (useRAF) &#123;</span><br><span class="line">        return window.cancelAnimationFrame(id);</span><br><span class="line">      &#125;</span><br><span class="line">      clearTimeout(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function invokeFunc(time) &#123;</span><br><span class="line">      const args = lastArgs;</span><br><span class="line">      const thisArg = lastThis;</span><br><span class="line"></span><br><span class="line">      lastArgs = lastThis = undefined; // 清空当前函数指向的this,argumnents</span><br><span class="line">      result = func.apply(thisArg, args); // 绑定当前函数指向的this,argumnents</span><br><span class="line">      return result;</span><br><span class="line">    &#125;</span><br><span class="line">    // 判断此时是否立即执行 func 函数</span><br><span class="line">    // lastCallTime === undefined 第一次调用时</span><br><span class="line">    // timeSinceLastCall &gt;= wait 超过超时时间 wait，处理事件结束后的那次回调</span><br><span class="line">    // timeSinceLastCall &lt; 0 当前时间 - 上次调用时间小于 0，即更改了系统时间</span><br><span class="line">    function shouldInvoke(time) &#123;</span><br><span class="line">      const timeSinceLastCall = time - lastCallTime;</span><br><span class="line">      return (</span><br><span class="line">        lastCallTime === undefined ||</span><br><span class="line">        timeSinceLastCall &gt;= wait ||</span><br><span class="line">        timeSinceLastCall &lt; 0</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 立即执行函数</span><br><span class="line">    function leadingEdge(time) &#123;</span><br><span class="line">      // 1、开启定时器，为了事件结束后的那次回调</span><br><span class="line">      timerId = startTimer(timerExpired, wait);</span><br><span class="line">      // 1、如果配置了 leading 执行传入函数 func</span><br><span class="line">      // leading 来源自 !!options.leading</span><br><span class="line">      return leading ? invokeFunc(time) : result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    const debounced = function (...args) &#123;</span><br><span class="line">      const time = Date.now(); // 获取当前时间</span><br><span class="line">      const isInvoking = shouldInvoke(time); // 判断此时是否立即执行 func 函数</span><br><span class="line"></span><br><span class="line">      lastArgs = args;</span><br><span class="line">      lastThis = this;</span><br><span class="line">      lastCallTime = time;</span><br><span class="line"></span><br><span class="line">      if (isInvoking) &#123;</span><br><span class="line">        // 判断是否立即执行</span><br><span class="line">        if (timerId === undefined) &#123;</span><br><span class="line">          return leadingEdge(lastCallTime);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      if (timerId === undefined) &#123;</span><br><span class="line">        timerId = startTimer(timerExpired, wait);</span><br><span class="line">      &#125;</span><br><span class="line">      return result;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    debounced.cancel = cancel;</span><br><span class="line">    return debounced;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>    上述代码：
+        1. 增加trailingEdge、trailingEdge以及invokeFunc函数
+        2. options目前只支持传入leading参数，也就是immediate。
+</code></pre>
+<ul>
+<li><strong>再往后</strong>，我们将 options 中的 trailing 加上，也就是这四部分<ul>
+<li>func (Function): 要防抖动的函数。</li>
+<li>[wait&#x3D;0] (number): 需要延迟的毫秒数。</li>
+<li>[options&#x3D;] (Object): 选项对象。</li>
+<li>[options.leading&#x3D;false] (boolean): 指定在延迟开始前调用。</li>
+<li>[options.trailing&#x3D;true] (boolean): 指定在延迟结束后调用。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func, wait, options) &#123;</span><br><span class="line">    let timerId, // setTimeout 生成的定时器句柄</span><br><span class="line">      lastThis, // 保存上一次 this</span><br><span class="line">      lastArgs, // 保存上一次执行 debounced 的 arguments</span><br><span class="line">      result, // 函数 func 执行后的返回值，多次触发但未满足执行 func 条件时，返回 result</span><br><span class="line">      lastCallTime; // 上一次调用 debounce 的时间</span><br><span class="line"></span><br><span class="line">    let leading = false; // 判断是否立即执行，默认false</span><br><span class="line">    let trailing = true; // 是否响应事件结束后的那次回调，即最后一次触发，false 时忽略,默认为true</span><br><span class="line"></span><br><span class="line">    wait = +wait || 0;</span><br><span class="line"></span><br><span class="line">    // 从options中获取是否立即执行</span><br><span class="line">    if (isObject(options)) &#123;</span><br><span class="line">      leading = !!options.leading;</span><br><span class="line">      trailing = &quot;trailing&quot; in options ? !!options.trailing : trailing;</span><br><span class="line">    &#125;</span><br><span class="line">    // 没传 wait 时调用 window.requestAnimationFrame()</span><br><span class="line">    const useRAF =</span><br><span class="line">      !wait &amp;&amp;</span><br><span class="line">      wait !== 0 &amp;&amp;</span><br><span class="line">      typeof window.requestAnimationFrame === &quot;function&quot;;</span><br><span class="line"></span><br><span class="line">    // 取消debounce</span><br><span class="line">    function cancel() &#123;</span><br><span class="line">      if (timerId !== undefined) &#123;</span><br><span class="line">        cancelTimer(timerId);</span><br><span class="line">      &#125;</span><br><span class="line">      lastArgs = lastThis = timerId = result = lastCallTime = undefined;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 开启定时器</span><br><span class="line">    function startTimer(pendingFunc, wait) &#123;</span><br><span class="line">      if (useRAF) &#123;</span><br><span class="line">        window.cancelAnimationFrame(timerId);</span><br><span class="line">        return window.requestAnimationFrame(pendingFunc);</span><br><span class="line">      &#125;</span><br><span class="line">      return setTimeout(pendingFunc, wait);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 定时器回调函数，表示定时结束后的操作</span><br><span class="line">    function timerExpired(wait) &#123;</span><br><span class="line">      const time = Date.now();</span><br><span class="line">      // 1、是否需要执行</span><br><span class="line">      // 执行事件结束后的那次回调，否则重启定时器</span><br><span class="line">      if (shouldInvoke(time)) &#123;</span><br><span class="line">        return trailingEdge(time);</span><br><span class="line">      &#125;</span><br><span class="line">      // 2、否则 计算剩余等待时间，重启定时器，保证下一次时延的末尾触发</span><br><span class="line">      timerId = startTimer(timerExpired, remainingWait(time));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function remainingWait(time) &#123;</span><br><span class="line">      const timeSinceLastCall = time - lastCallTime;</span><br><span class="line">      const timeWaiting = wait - timeSinceLastCall;</span><br><span class="line"></span><br><span class="line">      return timeWaiting;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 这里时触发后仍调用函数</span><br><span class="line">    function trailingEdge(time) &#123;</span><br><span class="line">      timerId = undefined;</span><br><span class="line"></span><br><span class="line">      // 这意味着`func&#x27;已经被调用过一次。</span><br><span class="line">      if (trailing &amp;&amp; lastArgs) &#123;</span><br><span class="line">        return invokeFunc(time);</span><br><span class="line">      &#125;</span><br><span class="line">      lastArgs = lastThis = undefined;</span><br><span class="line">      return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 取消定时器</span><br><span class="line">    function cancelTimer(id) &#123;</span><br><span class="line">      if (useRAF) &#123;</span><br><span class="line">        return window.cancelAnimationFrame(id);</span><br><span class="line">      &#125;</span><br><span class="line">      clearTimeout(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function invokeFunc(time) &#123;</span><br><span class="line">      const args = lastArgs;</span><br><span class="line">      const thisArg = lastThis;</span><br><span class="line">      lastArgs = lastThis = undefined; // 清空当前函数指向的this,argumnents</span><br><span class="line">      result = func.apply(thisArg, args); // 绑定当前函数指向的this,argumnents</span><br><span class="line">      return result;</span><br><span class="line">    &#125;</span><br><span class="line">    // 判断此时是否立即执行 func 函数</span><br><span class="line">    // lastCallTime === undefined 第一次调用时</span><br><span class="line">    // timeSinceLastCall &gt;= wait 超过超时时间 wait，处理事件结束后的那次回调</span><br><span class="line">    // timeSinceLastCall &lt; 0 当前时间 - 上次调用时间小于 0，即更改了系统时间</span><br><span class="line">    function shouldInvoke(time) &#123;</span><br><span class="line">      const timeSinceLastCall = time - lastCallTime;</span><br><span class="line">      return (</span><br><span class="line">        lastCallTime === undefined ||</span><br><span class="line">        timeSinceLastCall &gt;= wait ||</span><br><span class="line">        timeSinceLastCall &lt; 0</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 立即执行函数</span><br><span class="line">    function leadingEdge(time) &#123;</span><br><span class="line">      // 1、开启定时器，为了事件结束后的那次回调</span><br><span class="line">      timerId = startTimer(timerExpired, wait);</span><br><span class="line">      // 1、如果配置了 leading 执行传入函数 func</span><br><span class="line">      // leading 来源自 !!options.leading</span><br><span class="line">      return leading ? invokeFunc(time) : result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    const debounced = function (...args) &#123;</span><br><span class="line">      const time = Date.now(); // 获取当前时间</span><br><span class="line">      const isInvoking = shouldInvoke(time); // 判断此时是否立即执行 func 函数</span><br><span class="line"></span><br><span class="line">      lastArgs = args;</span><br><span class="line">      lastThis = this;</span><br><span class="line">      lastCallTime = time;</span><br><span class="line"></span><br><span class="line">      if (isInvoking) &#123;</span><br><span class="line">        // 判断是否立即执行</span><br><span class="line">        if (timerId === undefined) &#123;</span><br><span class="line">          return leadingEdge(lastCallTime);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      if (timerId === undefined) &#123;</span><br><span class="line">        timerId = startTimer(timerExpired, wait);</span><br><span class="line">      &#125;</span><br><span class="line">      return result;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    debounced.cancel = cancel;</span><br><span class="line">    return debounced;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>    上述代码：
+        1.leading和trailing不能同时为false。
+</code></pre>
+<p>其实可以在代码中加上判断同时为<code>false</code>时，默认<code>wait=0</code>，直接执行<code>window.requestAnimationFrame</code>部分,而不是定时器。</p>
+<ul>
+<li><strong>最后结合 maxWait</strong>,也就是将防抖和节流合并的关键。<ul>
+<li>func (Function): 要防抖动的函数。</li>
+<li>[wait&#x3D;0] (number): 需要延迟的毫秒数。</li>
+<li>[options&#x3D;] (Object): 选项对象。</li>
+<li>[options.leading&#x3D;false] (boolean): 指定在延迟开始前调用。</li>
+<li>[options.maxWait] (number): 设置 func 允许被延迟的最大值。</li>
+<li>[options.trailing&#x3D;true] (boolean): 指定在延迟结束后调用。</li>
+</ul>
+</li>
+</ul>
+<p>首先，我们可以先来看 lodash throttle 部分源码:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import debounce from &#x27;./debounce.js&#x27;</span><br><span class="line">import isObject from &#x27;./isObject.js</span><br><span class="line">function throttle(func, wait, options) &#123;</span><br><span class="line">  let leading = true</span><br><span class="line">  let trailing = true</span><br><span class="line"></span><br><span class="line">  if (typeof func !== &#x27;function&#x27;) &#123;</span><br><span class="line">    throw new TypeError(&#x27;Expected a function&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">  if (isObject(options)) &#123;</span><br><span class="line">    leading = &#x27;leading&#x27; in options ? !!options.leading : leading</span><br><span class="line">    trailing = &#x27;trailing&#x27; in options ? !!options.trailing : trailing</span><br><span class="line">  &#125;</span><br><span class="line">  return debounce(func, wait, &#123;</span><br><span class="line">    leading,</span><br><span class="line">    trailing,</span><br><span class="line">    &#x27;maxWait&#x27;: wait</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default throttle</span><br></pre></td></tr></table></figure>
+
+<p><strong>其实就是将 wait 传入了 debounce 函数的<code>option.maxWait</code>中。所以最后，我们只需要将之前的代码加上 maxWait 参数部分。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func, wait, options) &#123;</span><br><span class="line">    let timerId, // setTimeout 生成的定时器句柄</span><br><span class="line">      lastThis, // 保存上一次 this</span><br><span class="line">      lastArgs, // 保存上一次执行 debounced 的 arguments</span><br><span class="line">      result, // 函数 func 执行后的返回值，多次触发但未满足执行 func 条件时，返回 result</span><br><span class="line">      lastCallTime,</span><br><span class="line">      maxWait; // 上一次调用 debounce 的时间</span><br><span class="line"></span><br><span class="line">    let leading = false; // 判断是否立即执行，默认false</span><br><span class="line">    let trailing = true; // 是否响应事件结束后的那次回调，即最后一次触发，false 时忽略,默认为true</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 节流部分参数</span><br><span class="line">     **/</span><br><span class="line">    let lastInvokeTime = 0; // 上一次执行 func 的时间，配合 maxWait 多用于节流相关</span><br><span class="line">    let maxing = false; // 是否有最大等待时间，配合 maxWait 多用于节流相关</span><br><span class="line"></span><br><span class="line">    wait = +wait || 0;</span><br><span class="line"></span><br><span class="line">    // 从options中获取是否立即执行</span><br><span class="line">    if (isObject(options)) &#123;</span><br><span class="line">      leading = !!options.leading;</span><br><span class="line">      trailing = &quot;trailing&quot; in options ? !!options.trailing : trailing;</span><br><span class="line"></span><br><span class="line">      /**</span><br><span class="line">       * 节流部分参数</span><br><span class="line">       **/</span><br><span class="line">      maxing = &quot;maxWait&quot; in options; // options 中是否有 maxWait 属性，节流函数预留</span><br><span class="line">      maxWait = maxing ? Math.max(+options.maxWait || 0, wait) : maxWait; // maxWait 为设置的 maxWait 和 wait 中最大的</span><br><span class="line">      // 如果 maxWait &lt; wait，那 maxWait 就没有意义了</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 没传 wait 时调用 window.requestAnimationFrame()</span><br><span class="line">    const useRAF = !wait &amp;&amp; wait !== 0 &amp;&amp; typeof window.requestAnimationFrame === &quot;function&quot;;</span><br><span class="line"></span><br><span class="line">    // 取消debounce</span><br><span class="line">    function cancel() &#123;</span><br><span class="line">      if (timerId !== undefined) &#123;</span><br><span class="line">        cancelTimer(timerId);</span><br><span class="line">      &#125;</span><br><span class="line">      lastInvokeTime = 0;</span><br><span class="line">      leading = false;</span><br><span class="line">      maxing = false;</span><br><span class="line">      trailing = true;</span><br><span class="line">      lastArgs = lastThis = timerId = result = lastCallTime = maxWait = undefined;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 开启定时器</span><br><span class="line">    function startTimer(pendingFunc, wait) &#123;</span><br><span class="line">      if (useRAF) &#123;</span><br><span class="line">        window.cancelAnimationFrame(timerId);</span><br><span class="line">        return window.requestAnimationFrame(pendingFunc);</span><br><span class="line">      &#125;</span><br><span class="line">      return setTimeout(pendingFunc, wait);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 定时器回调函数，表示定时结束后的操作</span><br><span class="line">    function timerExpired(wait) &#123;</span><br><span class="line">      const time = Date.now();</span><br><span class="line">      // 1、是否需要执行</span><br><span class="line">      // 执行事件结束后的那次回调，否则重启定时器</span><br><span class="line">      if (shouldInvoke(time)) &#123;</span><br><span class="line">        return trailingEdge(time);</span><br><span class="line">      &#125;</span><br><span class="line">      // 2、否则 计算剩余等待时间，重启定时器，保证下一次时延的末尾触发</span><br><span class="line">      timerId = startTimer(timerExpired, remainingWait(time));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 计算仍需等待的时间</span><br><span class="line">    function remainingWait(time) &#123;</span><br><span class="line">      // 当前时间距离上一次调用 debounce 的时间差</span><br><span class="line">      const timeSinceLastCall = time - lastCallTime;</span><br><span class="line">      // 当前时间距离上一次执行 func 的时间差</span><br><span class="line">      const timeSinceLastInvoke = time - lastInvokeTime;</span><br><span class="line">      // 剩余等待时间</span><br><span class="line">      const timeWaiting = wait - timeSinceLastCall;</span><br><span class="line"></span><br><span class="line">      // 是否设置了最大等待时间</span><br><span class="line">      // 是（节流）：返回「剩余等待时间」和「距上次执行 func 的剩余等待时间」中的最小值</span><br><span class="line">      // 否：返回剩余等待时间</span><br><span class="line">      return maxing</span><br><span class="line">        ? Math.min(timeWaiting, maxWait - timeSinceLastInvoke)</span><br><span class="line">        : timeWaiting;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 这里时触发后仍调用函数</span><br><span class="line">    function trailingEdge(time) &#123;</span><br><span class="line">      timerId = undefined;</span><br><span class="line"></span><br><span class="line">      // 这意味着`func&#x27;已经被调用过一次。</span><br><span class="line">      if (trailing &amp;&amp; lastArgs) &#123;</span><br><span class="line">        return invokeFunc(time);</span><br><span class="line">      &#125;</span><br><span class="line">      lastArgs = lastThis = undefined;</span><br><span class="line">      return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 取消定时器</span><br><span class="line">    function cancelTimer(id) &#123;</span><br><span class="line">      if (useRAF) &#123;</span><br><span class="line">        return window.cancelAnimationFrame(id);</span><br><span class="line">      &#125;</span><br><span class="line">      clearTimeout(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function invokeFunc(time) &#123;</span><br><span class="line">      const args = lastArgs;</span><br><span class="line">      const thisArg = lastThis;</span><br><span class="line">      lastArgs = lastThis = undefined; // 清空当前函数指向的this,argumnents</span><br><span class="line"></span><br><span class="line">      lastInvokeTime = time;</span><br><span class="line">      result = func.apply(thisArg, args); // 绑定当前函数指向的this,argumnents</span><br><span class="line">      return result;</span><br><span class="line">    &#125;</span><br><span class="line">    // 判断此时是否立即执行 func 函数</span><br><span class="line">    // lastCallTime === undefined 第一次调用时</span><br><span class="line">    // timeSinceLastCall &gt;= wait 超过超时时间 wait，处理事件结束后的那次回调</span><br><span class="line">    // timeSinceLastCall &lt; 0 当前时间 - 上次调用时间小于 0，即更改了系统时间</span><br><span class="line">    // maxing &amp;&amp; timeSinceLastInvoke &gt;= maxWait 超过最大等待时间</span><br><span class="line">    function shouldInvoke(time) &#123;</span><br><span class="line">      // 当前时间距离上一次调用 debounce 的时间差</span><br><span class="line">      const timeSinceLastCall = time - lastCallTime;</span><br><span class="line">      // 当前时间距离上一次执行 func 的时间差</span><br><span class="line">      const timeSinceLastInvoke = time - lastInvokeTime;</span><br><span class="line"></span><br><span class="line">      // 上述 4 种情况返回 true</span><br><span class="line">      return (</span><br><span class="line">        lastCallTime === undefined ||</span><br><span class="line">        timeSinceLastCall &gt;= wait ||</span><br><span class="line">        timeSinceLastCall &lt; 0 ||</span><br><span class="line">        (maxing &amp;&amp; timeSinceLastInvoke &gt;= maxWait)</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 立即执行函数</span><br><span class="line">    function leadingEdge(time) &#123;</span><br><span class="line">      // 1、设置上一次执行 func 的时间</span><br><span class="line">      lastInvokeTime = time;</span><br><span class="line">      // 2、开启定时器，为了事件结束后的那次回调</span><br><span class="line">      timerId = startTimer(timerExpired, wait);</span><br><span class="line">      // 3、如果配置了 leading 执行传入函数 func</span><br><span class="line">      // leading 来源自 !!options.leading</span><br><span class="line">      return leading ? invokeFunc(time) : result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    const debounced = function (...args) &#123;</span><br><span class="line">      const time = Date.now(); // 获取当前时间</span><br><span class="line">      const isInvoking = shouldInvoke(time); // 判断此时是否立即执行 func 函数</span><br><span class="line"></span><br><span class="line">      lastArgs = args;</span><br><span class="line">      lastThis = this;</span><br><span class="line">      lastCallTime = time;</span><br><span class="line"></span><br><span class="line">      if (isInvoking) &#123;</span><br><span class="line">        // 判断是否立即执行</span><br><span class="line">        if (timerId === undefined) &#123;</span><br><span class="line">          return leadingEdge(lastCallTime);</span><br><span class="line">        &#125;</span><br><span class="line">        // 如果设置了最大等待时间，则立即执行 func</span><br><span class="line">        // 1、开启定时器，到时间后触发 trailingEdge 这个函数。</span><br><span class="line">        // 2、执行 func，并返回结果</span><br><span class="line">        if (maxing) &#123;</span><br><span class="line">          // 循环定时器中处理调用</span><br><span class="line">          timerId = startTimer(timerExpired, wait);</span><br><span class="line">          return invokeFunc(lastCallTime);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      if (timerId === undefined) &#123;</span><br><span class="line">        timerId = startTimer(timerExpired, wait);</span><br><span class="line">      &#125;</span><br><span class="line">      return result;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    debounced.cancel = cancel;</span><br><span class="line">    return debounced;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>上述代码：
+    尽管代码有点长，但是实际上只是增加了maxWait。
+</code></pre>
+<p>下面我们分析下 maxWait 新增的那部分代码。</p>
+<h2 id="分析-maxWait-新增部分"><a href="#分析-maxWait-新增部分" class="headerlink" title="分析 maxWait 新增部分"></a>分析 maxWait 新增部分</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">// 1.定义变量</span><br><span class="line">let maxWait; // 上一次调用 debounce 的时间</span><br><span class="line">let lastInvokeTime = 0; // 上一次执行 func 的时间，配合 maxWait 多用于节流相关</span><br><span class="line">let maxing = false; // 是否有最大等待时间，配合 maxWait 多用于节流相关</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 2.从options中取出maxWait</span><br><span class="line">if (isObject(options)) &#123;</span><br><span class="line">  maxing = &quot;maxWait&quot; in options; // options 中是否有 maxWait 属性，节流函数预留</span><br><span class="line">  maxWait = maxing ? Math.max(+options.maxWait || 0, wait) : maxWait; // maxWait 为设置的 maxWait 和 wait 中最大的</span><br><span class="line">  // 如果 maxWait &lt; wait，那 maxWait 就没有意义了</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 3.计算仍需等待的时间</span><br><span class="line">function remainingWait(time) &#123;</span><br><span class="line">  // 当前时间距离上一次调用 debounce 的时间差</span><br><span class="line">  const timeSinceLastCall = time - lastCallTime;</span><br><span class="line">  // 当前时间距离上一次执行 func 的时间差</span><br><span class="line">  const timeSinceLastInvoke = time - lastInvokeTime;</span><br><span class="line">  // 剩余等待时间</span><br><span class="line">  const timeWaiting = wait - timeSinceLastCall;</span><br><span class="line"></span><br><span class="line">  // 是否设置了最大等待时间</span><br><span class="line">  // 是（节流）：返回「剩余等待时间」和「距上次执行 func 的剩余等待时间」中的最小值</span><br><span class="line">  // 否：返回剩余等待时间</span><br><span class="line">  return maxing</span><br><span class="line">    ? Math.min(timeWaiting, maxWait - timeSinceLastInvoke)</span><br><span class="line">    : timeWaiting;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 4.判断是否立即执行</span><br><span class="line">function shouldInvoke(time) &#123;</span><br><span class="line">  // 当前时间距离上一次调用 debounce 的时间差</span><br><span class="line">  const timeSinceLastCall = time - lastCallTime;</span><br><span class="line">  // 当前时间距离上一次执行 func 的时间差</span><br><span class="line">  const timeSinceLastInvoke = time - lastInvokeTime;</span><br><span class="line"></span><br><span class="line">  // 上述 4 种情况返回 true</span><br><span class="line">  return (</span><br><span class="line">    lastCallTime === undefined ||</span><br><span class="line">    timeSinceLastCall &gt;= wait ||</span><br><span class="line">    timeSinceLastCall &lt; 0 ||</span><br><span class="line">    (maxing &amp;&amp; timeSinceLastInvoke &gt;= maxWait)</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 5.有maxing时，应该如何处理函数</span><br><span class="line">if (isInvoking) &#123;</span><br><span class="line">    // 判断是否立即执行</span><br><span class="line">    if (timerId === undefined) &#123;</span><br><span class="line">      return leadingEdge(lastCallTime);</span><br><span class="line">    &#125;</span><br><span class="line">    // 如果设置了最大等待时间，则立即执行 func</span><br><span class="line">    // 1、开启定时器，到时间后触发 trailingEdge 这个函数。</span><br><span class="line">    // 2、执行 func，并返回结果</span><br><span class="line">    if (maxing) &#123;</span><br><span class="line">      // 循环定时器中处理调用</span><br><span class="line">      timerId = startTimer(timerExpired, wait);</span><br><span class="line">      return invokeFunc(lastCallTime);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>1.新增变量</strong>就不多说了。</p>
+<p><strong>2.从 options 中取出<code>maxWait</code></strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 2.从options中取出maxWait</span><br><span class="line">if (isObject(options)) &#123;</span><br><span class="line">  maxing = &quot;maxWait&quot; in options; // options 中是否有 maxWait 属性，节流函数预留</span><br><span class="line">  maxWait = maxing ? Math.max(+options.maxWait || 0, wait) : maxWait; // maxWait 为设置的 maxWait 和 wait 中最大的</span><br><span class="line">  // 如果 maxWait &lt; wait，那 maxWait 就没有意义了</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>1.这里主要是将<code>maxing</code>,判断是否传了<code>maxWait</code>参数。</li>
+<li>2.如果未传则<code>maxWait</code>还是为初始定义的<code>undefined</code>。</li>
+<li>3.如果传入了<code>maxWait</code>，则重新赋值<code>Math.max(+options.maxWait || 0, wait)</code>。这里主要就是取<code>maxWait</code>和<code>wait</code>中的大值。</li>
+</ul>
+<p><strong>3.计算仍需等待的时间</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">return maxing</span><br><span class="line">    ? Math.min(timeWaiting, maxWait - timeSinceLastInvoke)</span><br><span class="line">    : timeWaiting;</span><br></pre></td></tr></table></figure>
+
+<p>首先判断是否节流（maxing）：</p>
+<ol>
+<li>是&#x3D;&gt;取「剩余等待时间」和「距上次执行 func 的剩余等待时间」中的最小值。</li>
+<li>否&#x3D;&gt;取剩余等待时间</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxWait - (time - lastInvokeTime)</span><br></pre></td></tr></table></figure>
+
+<p>这里是不是就是节流中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 下次触发 func 剩余时间</span><br><span class="line">const remaining = wait - (now - previous);</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.判断是否立即执行</strong><br>lodash 代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxing &amp;&amp; (time - lastInvokeTime) &gt;= maxWait</span><br></pre></td></tr></table></figure>
+
+<p>就往下执行。</p>
+<p>这里是不是就是节流中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (remaining &lt;= 0 || remaining &gt; wait)</span><br></pre></td></tr></table></figure>
+
+<p>就往下执行。</p>
+<p><strong>5.有 maxing 时，应该如何处理函数</strong><br>lodash 代码：如果是节流函数就执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 循环定时器中处理调用</span><br><span class="line">timerId = startTimer(timerExpired, wait);</span><br><span class="line">return invokeFunc(lastCallTime);</span><br></pre></td></tr></table></figure>
+
+<p>节流函数中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">timeout = setTimeout(function () &#123;</span><br><span class="line">    timeout = null;</span><br><span class="line">    previous = options.leading === false ? 0 : getNow(); // 这里是将previous重新赋值当前时间</span><br><span class="line">    showResult(context, args);</span><br><span class="line">&#125;, remaining);</span><br></pre></td></tr></table></figure>
+
+<p>总之，lodash<code>maxWait</code>部分，尽管参数名多，但实际上就是<strong>节流函数中，判断剩余时间<code>remaining</code>。不需要等待，就直接立即执行，否则就到剩余时间就执行一次，依次类推。</strong></p>
+<h2 id="对外-3-个方法"><a href="#对外-3-个方法" class="headerlink" title="对外 3 个方法"></a>对外 3 个方法</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">debounced.cancel = cancel // 取消函数延迟执行</span><br><span class="line">debounced.flush = flush // 立即执行 func</span><br><span class="line">debounced.pending = pending // 检查当前是否在计时中</span><br></pre></td></tr></table></figure>
+
+<h2 id="演示地址"><a href="#演示地址" class="headerlink" title="演示地址"></a>演示地址</h2><p>可以去<a target="_blank" rel="noopener" href="https://github.com/yihan12/Blog/tree/main/demos/debounce_lodash">Github 仓库</a>查看演示代码</p>
+<h2 id="跟着大佬学系列"><a href="#跟着大佬学系列" class="headerlink" title="跟着大佬学系列"></a>跟着大佬学系列</h2><p>主要是日常对每个进阶知识点的摸透，跟着大佬一起去深入了解 JavaScript 的语言艺术。</p>
+<p>后续会一直更新，希望各位看官不要吝啬手中的赞。</p>
+<p>❤️ <strong>感谢各位的支持！！！</strong></p>
+<p>❤️ <strong>如果有错误或者不严谨的地方，请务必给予指正，十分感谢！！！</strong></p>
+<p>❤️ <strong>喜欢或者有所启发，欢迎 star！！！</strong></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.muyiy.cn/blog/7/7.4.html">深入篇阿里 P6 必会 Lodash 防抖节流函数实现原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lodash/lodash/blob/master/debounce.js">lodash_debounce.js</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lodash/lodash/blob/master/throttle.js">lodash_throttle.js</a></li>
+</ul>
+<h2 id="原文地址"><a href="#原文地址" class="headerlink" title="原文地址"></a>原文地址</h2><p><a target="_blank" rel="noopener" href="https://github.com/yihan12/Blog/issues/3">【跟着大佬学 JavaScript】之 lodash 防抖节流合并
+</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2022/07/09/JavaScript/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6JavaScript%E3%80%91%E4%B9%8B%E8%8A%82%E6%B5%81/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-08-14 12:10:32
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/" title="JavaScript">
+                        <b>#</b> JavaScript
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/lodash%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="lodash源码分析">
+                        <b>#</b> lodash源码分析
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/lodash%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/" title="防抖节流">
+                        <b>#</b> 防抖节流
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/JavaScript/" title="JavaScript">
+                        #JavaScript
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/lodash/" title="lodash">
+                        #lodash
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2022/07/20/JavaScript/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6JavaScript%E3%80%91%E4%B9%8B%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%EF%BC%88%E7%BB%93%E6%9E%9C%E5%AF%B9%E6%AF%94%EF%BC%89/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-text">代码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BC%95%E5%85%A5%E4%BB%A3%E7%A0%81%E9%83%A8%E5%88%86"><span class="toc-text">一、引入代码部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81requestAnimationFrame-%E4%BB%A3%E7%A0%81"><span class="toc-text">二、requestAnimationFrame 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%94%B1%E7%AE%80%E5%85%A5%E7%B9%81%E8%BE%93%E5%87%BA%E9%98%B2%E6%8A%96%E5%87%BD%E6%95%B0"><span class="toc-text">三、由简入繁输出防抖函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90-maxWait-%E6%96%B0%E5%A2%9E%E9%83%A8%E5%88%86"><span class="toc-text">分析 maxWait 新增部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%A4%96-3-%E4%B8%AA%E6%96%B9%E6%B3%95"><span class="toc-text">对外 3 个方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E5%9C%B0%E5%9D%80"><span class="toc-text">演示地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6%E7%B3%BB%E5%88%97"><span class="toc-text">跟着大佬学系列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E6%96%87%E5%9C%B0%E5%9D%80"><span class="toc-text">原文地址</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/yihan12">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2023 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6JavaScript%E3%80%91%E4%B9%8Blodash%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81%E5%90%88%E5%B9%B6 + '&url=' + http%3A%2F%2Fexample.com%2F2022%2F07%2F10%2FJavaScript%2FJavaScript%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2F%25E3%2580%2590%25E8%25B7%259F%25E7%259D%2580%25E5%25A4%25A7%25E4%25BD%25AC%25E5%25AD%25A6JavaScript%25E3%2580%2591%25E4%25B9%258Blodash%25E9%2598%25B2%25E6%258A%2596%25E8%258A%2582%25E6%25B5%2581%25E5%2590%2588%25E5%25B9%25B6%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2022/07/10/JavaScript/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6JavaScript%E3%80%91%E4%B9%8Blodash%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81%E5%90%88%E5%B9%B6/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

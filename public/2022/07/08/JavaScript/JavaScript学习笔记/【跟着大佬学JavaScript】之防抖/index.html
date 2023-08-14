@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="keywords" content="个人,建站,博客,爱好,娱乐">
+  
+  <meta name="author" content="易函123" />
+  <meta name="description" content="我知道吹过的牛b，也会随青春一笑了之!!" />
+  
+  
+  <title>
+    
+      【跟着大佬学JavaScript】之防抖 
+      
+      
+      |
+    
+     易函123
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.jpeg">
+    <link rel="icon" href="/images/favicon.jpeg">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.jpeg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">易函123</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【跟着大佬学JavaScript】之防抖</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-08-14 12:12:31
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/" title="JavaScript">
+                    <b>#</b> JavaScript
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/" title="JavaScript深入理解">
+                    <b>#</b> JavaScript深入理解
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/%E9%98%B2%E6%8A%96/" title="防抖">
+                    <b>#</b> 防抖
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/JavaScript/" title="JavaScript">
+                    #JavaScript
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在前端开发中会遇到一些频繁的事件触发，比如：</p>
+<ol>
+<li>window 的 resize、scroll</li>
+<li>mousedown、mousemove、mousewheel(鼠标滚轮)</li>
+<li>keyup(弹起键盘)、keydown(按下键盘)、keypress(按下字符键盘)<br>……</li>
+</ol>
+<p>想象一下窗口的 resize 事件或者是一个元素的 onmouseover 事件 - 他们触发时，执行的非常迅速，并且触发很多次。如果你的回调过重，你可能使浏览器死掉。</p>
+<p>这就是为什么要使用防抖。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><blockquote>
+<p><strong>防抖的原理</strong>：在 wait 时间内，持续触发某个事件。第一种情况：如果某个事件触发 wait 秒内又触发了该事件，就应该以新的事件 wait 等待时间为准，wait 秒后再执行此事件；第二种情况：如果某个事件触发 wait 秒后，未再触发该事件，则在 wait 秒后直接执行该事件。</p>
+</blockquote>
+<p>通俗一点：定义 wait&#x3D;2000，持续点击按钮，前后点击间隔都在 2 秒内，则在最后一次点击按钮后，等待 2 秒再执行 func 方法。如果点击完按钮，2 秒后未再次点击按钮，则 2 秒后直接执行 func 方法。</p>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><h3 id="代码一-根据原理"><a href="#代码一-根据原理" class="headerlink" title="代码一(根据原理)"></a>代码一(根据原理)</h3><p>定义函数 debounce<br>根据表述，我们可以知道需要传入参数：func、wait<br>实现代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func, wait = 500) &#123;</span><br><span class="line">    let timeout; // 定义定时器，wait秒后需要清除定时器</span><br><span class="line">    return function () &#123;</span><br><span class="line">      // 如果再次触发函数时，已有timeout，则清空销毁当前timeout，再以新的事件重新设置定时器</span><br><span class="line">      if (timeout) clearTimeout(timeout);</span><br><span class="line"></span><br><span class="line">      timeout = setTimeout(function () &#123;</span><br><span class="line">        func();</span><br><span class="line">        clearTimeout(timeout)</span><br><span class="line">      &#125;, wait);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码二-解决函数-this-指向"><a href="#代码二-解决函数-this-指向" class="headerlink" title="代码二(解决函数 this 指向)"></a>代码二(解决函数 this 指向)</h3><p>我们之前的原函数指向哪，如果使用我们的 debounce 函数包裹后，也要将 this 指向正确的对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func, wait = 500) &#123;</span><br><span class="line">    let timeout, context;</span><br><span class="line">    return function () &#123;</span><br><span class="line">          context = this;</span><br><span class="line">          // 如果再次触发函数时，已有timeout，则清空销毁timeout，在往下执行</span><br><span class="line">          if (timeout) clearTimeout(timeout);</span><br><span class="line"></span><br><span class="line">          timeout = setTimeout(function () &#123;</span><br><span class="line">                func.apply(context);</span><br><span class="line">                clearTimeout(timeout);</span><br><span class="line">          &#125;, wait);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码三-解决函数-event-对象"><a href="#代码三-解决函数-event-对象" class="headerlink" title="代码三(解决函数 event 对象)"></a>代码三(解决函数 event 对象)</h3><p>JavaScript 在事件处理函数中会提供事件对象 event；<br>因此，也要考虑到保持原函数的 event 对象相同</p>
+<p>式一：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func, wait = 500) &#123;</span><br><span class="line">    let timeout, context, args;</span><br><span class="line">    return function () &#123;</span><br><span class="line">          context = this;</span><br><span class="line">          args = arguments;</span><br><span class="line">          // 如果再次触发函数时，已有timeout，则清空销毁timeout，在往下执行</span><br><span class="line">          if (timeout) clearTimeout(timeout);</span><br><span class="line"></span><br><span class="line">          timeout = setTimeout(function () &#123;</span><br><span class="line">                func.apply(context, args);</span><br><span class="line">                clearTimeout(timeout);</span><br><span class="line">          &#125;, wait);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>式二：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func, wait = 500) &#123;</span><br><span class="line">    let timeout, context;</span><br><span class="line">    return function (...args) &#123;</span><br><span class="line">          context = this;</span><br><span class="line">          // 如果再次触发函数时，已有timeout，则清空销毁timeout，在往下执行</span><br><span class="line">          if (timeout) clearTimeout(timeout);</span><br><span class="line"></span><br><span class="line">          timeout = setTimeout(function () &#123;</span><br><span class="line">                func.apply(context, args);</span><br><span class="line">                clearTimeout(timeout);</span><br><span class="line">          &#125;, wait);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码四-函数返回值"><a href="#代码四-函数返回值" class="headerlink" title="代码四(函数返回值)"></a>代码四(函数返回值)</h3><p>此时需要注意一个问题，就是我们在执行原函数时可能有返回值，我们需要处理 debounce 函数，在最后也要有相同返回值。</p>
+<p>这里做出的处理，是将<code>func.apply(context, args)</code>单独拿出来，输出原函数的<code>result</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func, wait = 500) &#123;</span><br><span class="line">    let timeout, context, result;</span><br><span class="line"></span><br><span class="line">    function showResult(e1, e2) &#123;</span><br><span class="line">        result = func.apply(e1, e2); // 绑定e1,e2的同时，输出result</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return function (...args) &#123;</span><br><span class="line">        context = this;</span><br><span class="line">        // 如果再次触发函数时，已有timeout，则清空销毁timeout，在往下执行</span><br><span class="line">        if (timeout) clearTimeout(timeout);</span><br><span class="line"></span><br><span class="line">        // 这里是不立即执行的原代码</span><br><span class="line">        timeout = setTimeout(function () &#123;</span><br><span class="line">            clearTimeout(timeout);</span><br><span class="line">            return showResult(context, args); // 将this，arguments代入函数</span><br><span class="line">        &#125;, wait);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码五-立刻执行"><a href="#代码五-立刻执行" class="headerlink" title="代码五(立刻执行)"></a>代码五(立刻执行)</h3><p>因为原理中，每次触发完后还需要等待 wait 秒执行。<br>但是某些场景，比如按钮点击后调用接口，会使整个时间变长，这时候就需要定义 immediate，点击按钮，立即执行调用接口，还要达到 wait 秒内防抖的效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func, wait = 500, immediate = false) &#123;</span><br><span class="line">    let timeout, context, result, callNow;</span><br><span class="line"></span><br><span class="line">    function showResult(e1, e2) &#123;</span><br><span class="line">        result = func.apply(e1, e2); // 绑定e1,e2的同时，输出result</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return function (...args) &#123;</span><br><span class="line">        context = this;</span><br><span class="line">        // 如果再次触发函数时，已有timeout，则清空销毁timeout，在往下执行</span><br><span class="line">        if (timeout) clearTimeout(timeout);</span><br><span class="line">        if (immediate) &#123;</span><br><span class="line">            // 这里是立即执行的判断代码</span><br><span class="line">            callNow = !timeout; // timeout最开始定义为undefined，如果未设置定时器，则!timeout返回true;否则返回false</span><br><span class="line">            timeout = setTimeout(function () &#123;</span><br><span class="line">                timeout = null; // 这里时定时器走完，让timeout为null，则上一步!timeout依然返回true;</span><br><span class="line">            &#125;, wait);</span><br><span class="line">            if (callNow) return showResult(context, args); //刚进入timeout=undefined以及，wait时间走完timeout = null，两种情况都会立即执行函数</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">        // 这里是不立即执行的原代码</span><br><span class="line">            timeout = setTimeout(function () &#123;</span><br><span class="line">                clearTimeout(timeout);</span><br><span class="line">                return showResult(context, args); // 将this，arguments代入函数</span><br><span class="line">            &#125;, wait);</span><br><span class="line">        &#125;</span><br><span class="line">        return result</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码六-取消"><a href="#代码六-取消" class="headerlink" title="代码六(取消)"></a>代码六(取消)</h3><p>增加取消防抖的方法：只需要定义 cancel 方法，去除定时器，将初始变量全部设置为 undefined。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func, wait = 500, immediate = false) &#123;</span><br><span class="line">    let timeout, context, result, callNow;</span><br><span class="line"></span><br><span class="line">    function showResult(e1, e2) &#123;</span><br><span class="line">        result = func.apply(e1, e2); // 绑定e1,e2的同时，输出result</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    const debounced = function (...args) &#123;</span><br><span class="line">        context = this;</span><br><span class="line">        // 如果再次触发函数时，已有timeout，则清空销毁timeout，在往下执行</span><br><span class="line">        if (timeout) clearTimeout(timeout);</span><br><span class="line">        if (immediate) &#123;</span><br><span class="line">            // 这里是立即执行的判断代码</span><br><span class="line">            callNow = !timeout; // timeout最开始定义为undefined，如果未设置定时器，则!timeout返回true;否则返回false</span><br><span class="line">            timeout = setTimeout(function () &#123;</span><br><span class="line">                timeout = null; // 这里时定时器走完，让timeout为null，则上一步!timeout依然返回true;</span><br><span class="line">            &#125;, wait);</span><br><span class="line">            if (callNow) return showResult(context, args); //刚进入timeout=undefined以及，wait时间走完timeout = null，两种情况都会立即执行函数</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 这里是不立即执行的原代码</span><br><span class="line">                timeout = setTimeout(function () &#123;</span><br><span class="line">                    clearTimeout(timeout);</span><br><span class="line">                    return showResult(context, args); // 将this，arguments代入函数</span><br><span class="line">                &#125;, wait);</span><br><span class="line">        &#125;</span><br><span class="line">        return result</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    debounced.cancel = function () &#123;</span><br><span class="line">        // 去除定时器，</span><br><span class="line">        if (timeout !== undefined) &#123;</span><br><span class="line">            clearTimeout(timeout);</span><br><span class="line">        &#125;</span><br><span class="line">        // 将初始变量全部设置为undefined</span><br><span class="line">        timeout = context = result = callNow = undefined;</span><br><span class="line">    &#125;;</span><br><span class="line">    return debounced;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="演示地址"><a href="#演示地址" class="headerlink" title="演示地址"></a>演示地址</h2><p>可以去<a target="_blank" rel="noopener" href="https://github.com/yihan12/Blog/tree/main/demos/debounce">Github 仓库</a>查看演示代码</p>
+<h2 id="跟着大佬学系列"><a href="#跟着大佬学系列" class="headerlink" title="跟着大佬学系列"></a>跟着大佬学系列</h2><p>主要是日常对每个进阶知识点的摸透，跟着大佬一起去深入了解 JavaScript 的语言艺术。</p>
+<p>后续会一直更新，希望各位看官不要吝啬手中的赞。</p>
+<p>❤️ <strong>感谢各位的支持！！！</strong></p>
+<p>❤️ <strong>如果有错误或者不严谨的地方，请务必给予指正，十分感谢！！！</strong></p>
+<p>❤️ <strong>喜欢或者有所启发，欢迎 star！！！</strong></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/22">JavaScript 专题之跟着 underscore 学防抖</a></li>
+<li><a target="_blank" rel="noopener" href="https://underscorejs.net/docs/underscore.html">underscore.js</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/yygmind/blog/issues/39">深入浅出防抖函数 debounce</a></li>
+</ul>
+<h2 id="原文地址"><a href="#原文地址" class="headerlink" title="原文地址"></a>原文地址</h2><p><a target="_blank" rel="noopener" href="https://github.com/yihan12/Blog/issues/1">【跟着大佬学 JavaScript】之防抖</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2022/03/10/Echarts/echats%E6%8A%98%E7%BA%BF--%E6%8B%90%E7%82%B9%E5%9C%86%E7%9A%84%E6%A0%B7%E5%BC%8F%EF%BC%88%E5%86%85%E5%9C%86%E5%A4%96%E5%9C%86%EF%BC%89/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-08-14 12:12:31
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/" title="JavaScript">
+                        <b>#</b> JavaScript
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/" title="JavaScript深入理解">
+                        <b>#</b> JavaScript深入理解
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/%E9%98%B2%E6%8A%96/" title="防抖">
+                        <b>#</b> 防抖
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/JavaScript/" title="JavaScript">
+                        #JavaScript
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2022/07/09/JavaScript/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6JavaScript%E3%80%91%E4%B9%8B%E8%8A%82%E6%B5%81/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="toc-text">示例代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%B8%80-%E6%A0%B9%E6%8D%AE%E5%8E%9F%E7%90%86"><span class="toc-text">代码一(根据原理)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%BA%8C-%E8%A7%A3%E5%86%B3%E5%87%BD%E6%95%B0-this-%E6%8C%87%E5%90%91"><span class="toc-text">代码二(解决函数 this 指向)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%B8%89-%E8%A7%A3%E5%86%B3%E5%87%BD%E6%95%B0-event-%E5%AF%B9%E8%B1%A1"><span class="toc-text">代码三(解决函数 event 对象)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%9B%9B-%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text">代码四(函数返回值)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%BA%94-%E7%AB%8B%E5%88%BB%E6%89%A7%E8%A1%8C"><span class="toc-text">代码五(立刻执行)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%85%AD-%E5%8F%96%E6%B6%88"><span class="toc-text">代码六(取消)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E5%9C%B0%E5%9D%80"><span class="toc-text">演示地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6%E7%B3%BB%E5%88%97"><span class="toc-text">跟着大佬学系列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E6%96%87%E5%9C%B0%E5%9D%80"><span class="toc-text">原文地址</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/yihan12">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2023 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6JavaScript%E3%80%91%E4%B9%8B%E9%98%B2%E6%8A%96 + '&url=' + http%3A%2F%2Fexample.com%2F2022%2F07%2F08%2FJavaScript%2FJavaScript%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2F%25E3%2580%2590%25E8%25B7%259F%25E7%259D%2580%25E5%25A4%25A7%25E4%25BD%25AC%25E5%25AD%25A6JavaScript%25E3%2580%2591%25E4%25B9%258B%25E9%2598%25B2%25E6%258A%2596%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2022/07/08/JavaScript/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6JavaScript%E3%80%91%E4%B9%8B%E9%98%B2%E6%8A%96/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

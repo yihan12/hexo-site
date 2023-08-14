@@ -2,7 +2,7 @@
 title: 【ES6学习笔记】之 解构赋值
 date:
 tags: [JavaScript, ES6]
-categories: [前端, ES6, 解构]
+categories: [前端, JavaScript, ES6, 解构]
 ---
 
 # 概览

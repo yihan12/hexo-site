@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="keywords" content="个人,建站,博客,爱好,娱乐">
+  
+  <meta name="author" content="易函123" />
+  <meta name="description" content="我知道吹过的牛b，也会随青春一笑了之!!" />
+  
+  
+  <title>
+    
+      【跟着大佬学JavaScript】之节流 
+      
+      
+      |
+    
+     易函123
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.jpeg">
+    <link rel="icon" href="/images/favicon.jpeg">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.jpeg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">易函123</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【跟着大佬学JavaScript】之节流</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-08-14 12:11:58
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/" title="JavaScript">
+                    <b>#</b> JavaScript
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/" title="JavaScript深入理解">
+                    <b>#</b> JavaScript深入理解
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/%E8%8A%82%E6%B5%81/" title="节流">
+                    <b>#</b> 节流
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/JavaScript/" title="JavaScript">
+                    #JavaScript
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>js 的典型的场景</p>
+<ul>
+<li>监听页面的 scroll 事件</li>
+<li>拖拽事件</li>
+<li>监听鼠标的 mousemove 事件<br>…</li>
+</ul>
+<p>这些事件会频繁触发会影响性能，如果使用节流，降低频次，保留了用户体验，又提升了执行速度，节省资源。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><blockquote>
+<p><strong>节流的原理</strong>：持续触发某事件，每隔一段时间，只执行一次。</p>
+</blockquote>
+<p>通俗点说，3 秒内多次调用函数，但是在 3 秒间隔内只执行一次，第一次执行后 3 秒 无视后面所有的函数调用请求，也不会延长时间间隔。3 秒间隔结束后则开始执行新的函数调用请求，然后在这新的 3 秒内依旧无视后面所有的函数调用请求，以此类推。</p>
+<p>简单来说：每隔单位时间（ 3 秒），只执行一次。</p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>目前比较主流的实现方式有两种：时间戳、定时器。</p>
+<h3 id="时间戳实现"><a href="#时间戳实现" class="headerlink" title="时间戳实现"></a>时间戳实现</h3><p>使用时间戳实现：首先初始化执行事件的时间 previous 为 0，然后将当前的时间戳减去上次执行时间（now - previous），如果大于 wait，则直接执行函数，并且将此时的执行时间 now 赋给 previous（previous &#x3D; now）。</p>
+<p>由于首次 previous &#x3D; 0，则此时函数第一次触发就会立即执行。</p>
+<p>后续则每隔 wait 时间执行一次，如果停止触发，则不会再执行函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 由于一开始now - 0 &gt; wait，则这个写法，时间会立即执行，没过一秒会执行一次，停止触发，则不会再执行事件</span><br><span class="line">function throttle(func, wait = 500) &#123;</span><br><span class="line">    let context, now;</span><br><span class="line">    let previous = 0; // 设置过去的执行时间初始值为0</span><br><span class="line">    return function (...args) &#123;</span><br><span class="line">        context = this;</span><br><span class="line">        now = +(Date.now() || new Date().getTime());</span><br><span class="line">        if (now - previous &gt; wait) &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">            previous = now;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="定时器实现"><a href="#定时器实现" class="headerlink" title="定时器实现"></a>定时器实现</h3><p>使用定时器实现：首先初始化 timeout，然后定义!timeout 为 true 的情况下，直接执行 setTimeout，，等待 wait 时间后执行函数，然后清空 timeout，以此类推，重新进入也会按上述执行。</p>
+<p>由于进入函数，就执行 setTimeout，所以不会立即触发函数执行。</p>
+<p>后续则每隔 wait 时间执行一次，如果停止触发，而后还会触发执行一次函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 由于一进入就创建了定时器，所以不会立即触发函数执行</span><br><span class="line">function throttle(func, wait = 500) &#123;</span><br><span class="line">    let context, timeout;</span><br><span class="line"></span><br><span class="line">    return function (...args) &#123;</span><br><span class="line">        context = this;</span><br><span class="line"></span><br><span class="line">        if (!timeout) &#123;</span><br><span class="line">            timeout = setTimeout(function () &#123;</span><br><span class="line">                timeout = null;</span><br><span class="line">                func.apply(context, args);</span><br><span class="line">            &#125;, wait);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="合并版本"><a href="#合并版本" class="headerlink" title="合并版本"></a>合并版本</h3><p>如果，我们需要既刚开始就立即执行，停止触发后，还会触发执行一次函数。</p>
+<p>下面，我们将定时器和时间戳合并，组成一个全新的节流版本。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function throttle(func, wait = 500) &#123;</span><br><span class="line">    let context, timeout, result;</span><br><span class="line">    let previous = 0;</span><br><span class="line">    const throttled = function (...args) &#123;</span><br><span class="line">        context = this;</span><br><span class="line">        const now = +(Date.now() || new Date().getTime()); // 当前时间</span><br><span class="line">        // 下次触发 func 剩余时间</span><br><span class="line">        const remaining = wait - (now - previous);</span><br><span class="line"></span><br><span class="line">        // 如果没有剩余时间或者改了系统时间,这时候不需要等待，直接立即执行，这样就会第一次就执行</span><br><span class="line">        if (remaining &lt;= 0 || remaining &gt; wait) &#123;</span><br><span class="line">            if (timeout) &#123;</span><br><span class="line">                clearTimeout(timeout);</span><br><span class="line">                timeout = null;</span><br><span class="line">            &#125;</span><br><span class="line">            previous = now;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">        &#125; else if (!timeout) &#123;</span><br><span class="line">            // 剩余的情况就是remaining&lt;=wait的情况，这里使用setTimeout就可以最后也会执行一次</span><br><span class="line">            timeout = setTimeout(function () &#123;</span><br><span class="line">                timeout = null;</span><br><span class="line">                previous = +(Date.now() || new Date().getTime()); // 这里是将previous重新赋值当前时间</span><br><span class="line">                func.apply(context, args);</span><br><span class="line">            &#125;, remaining);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    return throttled;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="合并版本优化"><a href="#合并版本优化" class="headerlink" title="合并版本优化"></a>合并版本优化</h3><p>由于合并后的版本并没用返回值的优化+取消功能。</p>
+<p>下面对代码进行返回值+取消功能优化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">function throttle(func, wait = 500) &#123;</span><br><span class="line">    let context, timeout, result;</span><br><span class="line">    let previous = 0;</span><br><span class="line"></span><br><span class="line">    const showResult = function (e1, e2) &#123;</span><br><span class="line">        result = func.apply(e1, e2);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    const throttled = function (...args) &#123;</span><br><span class="line">        context = this;</span><br><span class="line">        const now = +(Date.now() || new Date().getTime()); // 当前时间</span><br><span class="line">        // 下次触发 func 剩余时间</span><br><span class="line">        const remaining = wait - (now - previous);</span><br><span class="line"></span><br><span class="line">        // 如果没有剩余时间或者改了系统时间,这时候不需要等待，直接立即执行，这样就会第一次就执行</span><br><span class="line">        if (remaining &lt;= 0 || remaining &gt; wait) &#123;</span><br><span class="line">            if (timeout) &#123;</span><br><span class="line">                clearTimeout(timeout);</span><br><span class="line">                timeout = null;</span><br><span class="line">            &#125;</span><br><span class="line">            previous = now;</span><br><span class="line">            return showResult(context, args);</span><br><span class="line">        &#125; else if (!timeout) &#123;</span><br><span class="line">            // 剩余的情况就是remaining&lt;=wait的情况，这里使用setTimeout就可以最后也会执行一次</span><br><span class="line">            timeout = setTimeout(function () &#123;</span><br><span class="line">                timeout = null;</span><br><span class="line">                previous = +(Date.now() || new Date().getTime()); // 这里是将previous重新赋值当前时间</span><br><span class="line">                return showResult(context, args);</span><br><span class="line">            &#125;, remaining);</span><br><span class="line">        &#125;</span><br><span class="line">        retrun result</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    throttled.cancel = function () &#123;</span><br><span class="line">        if (timeout !== undefined) &#123;</span><br><span class="line">            clearTimeout(timeout);</span><br><span class="line">        &#125;</span><br><span class="line">        previous = 0;</span><br><span class="line">        context = timeout = result = undefined;</span><br><span class="line">    &#125;;</span><br><span class="line">    return throttled;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="功能性优化"><a href="#功能性优化" class="headerlink" title="功能性优化"></a>功能性优化</h3><p>有时候，我们也希望无头有尾，或者有头无尾。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">function throttle(func, wait = 500, options = &#123;&#125;) &#123;</span><br><span class="line">    let context, timeout, result;</span><br><span class="line">    let previous = 0;</span><br><span class="line"></span><br><span class="line">   // 如果同时设置无头无尾，则直接使用默认设置,其他情况，则走下述操作</span><br><span class="line">    if (!(options.leading === false &amp;&amp; options.trailing === false)) &#123;</span><br><span class="line">        leading = !!options.leading; // 默认去除立即执行部分</span><br><span class="line">        trailing = &quot;trailing&quot; in options ? !!options.trailing : true; // 默认保留尾部</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 返回原函数的return</span><br><span class="line">    const showResult = function (e1, e2) &#123;</span><br><span class="line">        result = func.apply(e1, e2);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    // 获取当前时间</span><br><span class="line">    const getNow = function () &#123;</span><br><span class="line">        return +(Date.now() || new Date().getTime());</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    const throttled = function (...args) &#123;</span><br><span class="line">        context = this;</span><br><span class="line">        const now = getNow(); // 当前时间</span><br><span class="line">        // 下次触发 func 剩余时间</span><br><span class="line">        if (!previous &amp;&amp; leading === false) previous = now;</span><br><span class="line">        const remaining = wait - (now - previous);</span><br><span class="line"></span><br><span class="line">        // 如果没有剩余时间或者改了系统时间,这时候不需要等待，直接立即执行，这样就会第一次就执行</span><br><span class="line">        if (remaining &lt;= 0 || remaining &gt; wait) &#123;</span><br><span class="line">            if (timeout) &#123;</span><br><span class="line">                clearTimeout(timeout);</span><br><span class="line">                timeout = null;</span><br><span class="line">            &#125;</span><br><span class="line">            previous = now;</span><br><span class="line">            return showResult(context, args);</span><br><span class="line">        &#125; else if (!timeout &amp;&amp; trailing !== false) &#123;</span><br><span class="line">            // 剩余的情况就是remaining&lt;=wait的情况，这里使用setTimeout就可以最后也会执行一次</span><br><span class="line">            timeout = setTimeout(function () &#123;</span><br><span class="line">                timeout = null;</span><br><span class="line">                previous = options.leading === false ? 0 : getNow(); // 这里是将previous重新赋值当前时间</span><br><span class="line">                return showResult(context, args);</span><br><span class="line">            &#125;, remaining);</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    throttled.cancel = function () &#123;</span><br><span class="line">        if (timeout !== undefined) &#123;</span><br><span class="line">            clearTimeout(timeout);</span><br><span class="line">        &#125;</span><br><span class="line">        previous = 0;</span><br><span class="line">        context = timeout = result = undefined;</span><br><span class="line">    &#125;;</span><br><span class="line">    return throttled;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里，如果 options 不传参数，函数默认设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let leading = false</span><br><span class="line">let trailing = true</span><br></pre></td></tr></table></figure>
+
+<p>也就是无头有尾。</p>
+<p>如果同时设置无头无尾，则会直接采用默认设置，无头有尾。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 如果同时设置无头无尾，则直接使用默认设置,其他情况，则走下述操作</span><br><span class="line">if (!(options.leading === false &amp;&amp; options.trailing === false)) &#123;</span><br><span class="line">    leading = !!options.leading; // 默认去除立即执行部分</span><br><span class="line">    trailing = &quot;trailing&quot; in options ? !!options.trailing : true; // 默认保留尾部</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="演示地址"><a href="#演示地址" class="headerlink" title="演示地址"></a>演示地址</h2><p>可以去<a target="_blank" rel="noopener" href="https://github.com/yihan12/Blog/tree/main/demos/throttle">Github 仓库</a>查看演示代码</p>
+<h2 id="跟着大佬学系列"><a href="#跟着大佬学系列" class="headerlink" title="跟着大佬学系列"></a>跟着大佬学系列</h2><p>主要是日常对每个进阶知识点的摸透，跟着大佬一起去深入了解 JavaScript 的语言艺术。</p>
+<p>后续会一直更新，希望各位看官不要吝啬手中的赞。</p>
+<p>❤️ <strong>感谢各位的支持！！！</strong></p>
+<p>❤️ <strong>如果有错误或者不严谨的地方，请务必给予指正，十分感谢！！！</strong></p>
+<p>❤️ <strong>喜欢或者有所启发，欢迎 star！！！</strong></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/26">JavaScript 专题之跟着 underscore 学节流</a></li>
+<li><a target="_blank" rel="noopener" href="https://underscorejs.net/docs/underscore.html">underscore.js</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/yygmind/blog/issues/38">深入浅出节流函数 throttle</a></li>
+</ul>
+<h2 id="原文地址"><a href="#原文地址" class="headerlink" title="原文地址"></a>原文地址</h2><p><a target="_blank" rel="noopener" href="https://github.com/yihan12/Blog/issues/2">【跟着大佬学 JavaScript】之节流</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2022/07/08/JavaScript/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6JavaScript%E3%80%91%E4%B9%8B%E9%98%B2%E6%8A%96/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-08-14 12:11:58
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/" title="JavaScript">
+                        <b>#</b> JavaScript
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/" title="JavaScript深入理解">
+                        <b>#</b> JavaScript深入理解
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/%E8%8A%82%E6%B5%81/" title="节流">
+                        <b>#</b> 节流
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/JavaScript/" title="JavaScript">
+                        #JavaScript
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2022/07/10/JavaScript/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6JavaScript%E3%80%91%E4%B9%8Blodash%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81%E5%90%88%E5%B9%B6/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-text">实现方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E6%88%B3%E5%AE%9E%E7%8E%B0"><span class="toc-text">时间戳实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E5%AE%9E%E7%8E%B0"><span class="toc-text">定时器实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E7%89%88%E6%9C%AC"><span class="toc-text">合并版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E7%89%88%E6%9C%AC%E4%BC%98%E5%8C%96"><span class="toc-text">合并版本优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E6%80%A7%E4%BC%98%E5%8C%96"><span class="toc-text">功能性优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E5%9C%B0%E5%9D%80"><span class="toc-text">演示地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6%E7%B3%BB%E5%88%97"><span class="toc-text">跟着大佬学系列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E6%96%87%E5%9C%B0%E5%9D%80"><span class="toc-text">原文地址</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/yihan12">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2023 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6JavaScript%E3%80%91%E4%B9%8B%E8%8A%82%E6%B5%81 + '&url=' + http%3A%2F%2Fexample.com%2F2022%2F07%2F09%2FJavaScript%2FJavaScript%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2F%25E3%2580%2590%25E8%25B7%259F%25E7%259D%2580%25E5%25A4%25A7%25E4%25BD%25AC%25E5%25AD%25A6JavaScript%25E3%2580%2591%25E4%25B9%258B%25E8%258A%2582%25E6%25B5%2581%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2022/07/09/JavaScript/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E8%B7%9F%E7%9D%80%E5%A4%A7%E4%BD%AC%E5%AD%A6JavaScript%E3%80%91%E4%B9%8B%E8%8A%82%E6%B5%81/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
