@@ -45,14 +45,21 @@ comments:
 
   gitalk:
     # https://github.com/gitalk/gitalk#usage查看官方教程
-    enable: false
-    clientID:
-    clientSecret:
-    repo:
-    owner:
-    admin:
-    id: location.pathname
-    distractionFreeMode: false
+    enable: true
+    url:
+      css: https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css
+      js: https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js
+    githubID: yihan12 # account name
+    repo: https://github.com/yihan12/yihan12.github.io # GitHub repository.准备工作中新建的仓库
+    ClientID: 5feacab0e996a1b7ffe4 # GitHub Application Client ID.
+    ClientSecret: 89eadd0ac6a70f0ac354fd7964e83f4687a622b5 # GitHub Application Client Secret.
+    owner: yihan12 # GitHub repository owner. Can be personal user or organization.
+    adminUser: yihan12
+    distractionFreeMode: true # Facebook-like distraction free mode.
+    labels: "['Gitalk']"
+    perPage: 15 # Pagination size, with maximum 100.
+    pagerDirection: last # Comment sorting direction, available values are last and first.
+    createIssueManually: true # By default, Gitalk will create a
 
   valine:
     # https://valine.js.org/quickstart.html#%E8%8E%B7%E5%8F%96APP-ID-%E5%92%8C-APP-Key
