@@ -141,6 +141,9 @@ footer:
     # name: 名称
     # icon: 图标，目前仅支持IconFont部分图标
     # path: 地址
+    - name: rss
+      icon: rss
+      path: /atom.xml
 
     # 按需取消注释以启用
     - name: github
