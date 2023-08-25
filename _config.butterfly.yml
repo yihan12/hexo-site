@@ -433,11 +433,11 @@ livere:
 # gitalk
 # https://github.com/gitalk/gitalk
 gitalk:
-  client_id:
-  client_secret:
-  repo:
-  owner:
-  admin:
+  client_id: 5feacab0e996a1b7ffe4
+  client_secret: 89eadd0ac6a70f0ac354fd7964e83f4687a622b5
+  repo: yihan12.github.io
+  owner: yihan12
+  admin: ['yihan12']
   option:
 
 # valine
@@ -558,7 +558,7 @@ messenger:
 
 # Baidu Analytics
 # https://tongji.baidu.com/web/welcome/login
-baidu_analytics:
+baidu_analytics: 80da4761d181e925002b9e42bf38d64d
 
 # Google Analytics
 # https://analytics.google.com/analytics/web/
