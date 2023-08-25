@@ -231,10 +231,10 @@ aside:
       enable: true
       icon: fab fa-github
       text: Follow Me
-      link: https://github.com/xxxxxx
+      link: https://github.com/yihan12
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: 易函123博客、学习笔记、生活记录的角落。
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all
