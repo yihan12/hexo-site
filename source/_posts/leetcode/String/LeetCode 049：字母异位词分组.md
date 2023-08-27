@@ -1,52 +1,81 @@
 ---
-title: LeetCode 039：组合总和
+title: LeetCode 049：字母异位词分组
 date:
 tags: [leetcode, 字符串]
-categories: [前端, leetcode, 039组合总和]
+categories: [前端, leetcode, 049字母异位词分组]
 ---
 
 # 题目地址
 
-> https://leetcode.cn/problems/combination-sum/
+https://leetcode.cn/problems/group-anagrams/
 
-# 题目描述
-
-```
-给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的 所有 不同组合 ，并以列表形式返回。你可以按 任意顺序 返回这些组合。
-
-candidates 中的 同一个 数字可以 无限制重复被选取 。如果至少一个数字的被选数量不同，则两种组合是不同的。
-
-对于给定的输入，保证和为 target 的不同组合数少于 150 个。
-
-
-
-示例 1：
-
-输入：candidates = [2,3,6,7], target = 7
-输出：[[2,2,3],[7]]
-解释：
-2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2 可以使用多次。
-7 也是一个候选， 7 = 7 。
-仅有这两种组合。
-
-示例 2：
-
-输入: candidates = [2,3,5], target = 8
-输出: [[2,2,2,2],[2,3,3],[3,5]]
-
-示例 3：
-
-输入: candidates = [2], target = 1
-输出: []
+### 题目描述
 
 ```
+给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。
 
-# 解法
+字母异位词 是由重新排列源单词的所有字母得到的一个新单词。
 
-### 思路
+ 
 
-### 代码
+示例 1:
+
+输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
+示例 2:
+
+输入: strs = [""]
+输出: [[""]]
+示例 3:
+
+输入: strs = ["a"]
+输出: [["a"]]
+```
+
+### 解答
 
 ```javascript
+const groupAnagrams = function (strs) {
+  const map = new Map()
+  for (let str of strs) {
+    let array = Array.from(str) //字符转成数组
+    array.sort() //排序
+    let key = array.toString()
+    let list = map.get(key) ? map.get(key) : [] //从map中取到相应的数组
+    list.push(str) //加入数组
+    map.set(key, list) //重新设置该字符的数组
+  }
+  return Array.from(map.values()) //map中的value转成数组
+}
+```
 
+```javascript
+function xier(arr) {
+  var interval = parseInt(arr.length / 2) //分组间隔设置
+  while (interval > 0) {
+    for (var i = 0; i < arr.length; i++) {
+      var n = i
+      while (arr[n] < arr[n - interval] && n > 0) {
+        var temp = arr[n]
+        arr[n] = arr[n - interval]
+        arr[n - interval] = temp
+        n = n - interval
+      }
+    }
+    interval = parseInt(interval / 2)
+  }
+  return arr
+}
+const groupAnagrams = function (strs) {
+  const map = {}
+  for (let str of strs) {
+    let array = Array.from(str) //字符转成数组
+    array = xier(array)
+    let key = array.toString()
+    let list = map[key] ? map[key] : [] //从map中取到相应的数组
+    list.push(str) //加入数组
+    map[key] = list //重新设置该字符的数组
+  }
+  return Object.values(map)
+}
 ```
