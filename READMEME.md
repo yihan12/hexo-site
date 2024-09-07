@@ -1,5 +1,12 @@
 # 操作
 
 ```javascript
-sh deploy.sh
+// 生成器
+hexo generate
+// 部署
+hexo deploy
+// 清除缓存
+hexo clean
 ```
+
+https://hexo.io/zh-cn/docs/commands.html#clean
