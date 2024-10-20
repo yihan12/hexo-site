@@ -1,5 +1,5 @@
 ---
-title: LLeetCode 004：寻找两个正序数组的中位数
+title: LeetCode 004：寻找两个正序数组的中位数
 date:
 tags: [leetcode, 栈]
 categories: [前端, leetcode, 004寻找两个正序数组的中位数]
