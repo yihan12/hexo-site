@@ -7,6 +7,8 @@ hexo generate
 hexo deploy
 // 清除缓存
 hexo clean
+// 清空 .deploy_git
+rm -rf .deploy_git
 ```
 
 https://hexo.io/zh-cn/docs/commands.html#clean
