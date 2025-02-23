@@ -1,3 +1,10 @@
+---
+title: LeetCode 第 1 号问题：两数之和
+date:
+tags: [leetcode, JavaScript,栈,哈希表]
+categories: [前端, leetcode, 栈,哈希表]
+---
+
 #栈 #哈希表 #leetcode #JavaScript #数组
 # LeetCode 第 1 号问题：两数之和
 
